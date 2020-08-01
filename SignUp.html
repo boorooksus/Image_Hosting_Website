@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="SignUp.css">
+    <script src="SignUp.js"></script>
+    <title>SignUp</title>
+</head>
+<body>
+    <h6 id="signUp"><a href="SignUp.html">회원 가입</a></h6>
+    <img src="#" alt="Add Image" width="1000px" height="350px">
+    <h4 class="title">회원 가입</h4>
+    <div id="grid">
+        <ul>
+            <li>전체 글 보기</li>
+            <br>
+            <li>게시판1</li>
+            <li>게시판2</li>
+            <li>게시판3</li>
+            <li>게시판4</li>
+        </ul>
+        <div id="inputInfo">
+            <table>
+                <tr>
+                    <td>아이디</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td><input type="password" id="password" onkeyup="correct(this)"></td>
+                </tr>
+            </table>
+            <p id="judgement_1"></p>
+            <table>
+                <tr>
+                    <td>비밀번호 확인</td>
+                    <td><input type="password" onkeyup="same(this)"></td>
+                </tr>
+            </table>
+            <p id="judgement_2"></p>
+            <table>
+                <tr>
+                    <td>이름</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>생년월일</td>
+                    <td><input type="date"></td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td><input type="email"></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>성별</td>
+                    <td><input type="button" id="male" value="남" onclick="gender(this, '#female')"></td>
+                    <td><input type="button" id="female" value="여" onclick="gender(this, '#male')"></td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            <br>
+            <input class="btn_submit" type="submit" value="회원가입">
+        </div>
+    </div>
+    
+</body>
+</html>

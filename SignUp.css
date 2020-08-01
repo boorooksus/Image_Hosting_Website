@@ -1,0 +1,84 @@
+#grid{
+    display: grid;
+    grid-template-columns: 150px 800px;
+    padding-left: 5px;
+}
+#gridCol{
+    display: grid;
+    grid-template-columns: 400px 400px;
+    padding-left: 20px;
+}
+#gridRow{
+    display: grid;
+    grid-template-rows: 500px 500px;
+    border-top: 2px solid gray;
+}
+#signUp{
+    text-align: end;
+    padding-right: 30px;
+}
+#inputInfo{
+    margin: 0;
+    margin-left: 30px;
+    padding: 100px;
+    padding-top: 20px;
+    padding-left: 80px;
+    padding-bottom: 50px;
+    border-top: solid 1px gray;
+    border-bottom: solid 1px gray;
+}
+#male, #female{
+    background-color: rgb(216, 213, 213);
+    width: 90px;
+}
+#judgement_1, #judgement_2{
+    font-size: 10px;
+    margin: 0;
+    padding-left: 110px;
+}
+.border{
+    border-top: 2px solid gray;
+}
+.title{
+    margin-top: 30px;
+    margin-left: 190px;
+}
+.btn_submit{
+    margin-left: 30px;
+    inline-size: 300px;
+    block-size: 30px;
+}
+body{
+    padding: 100px;
+    padding-top: 10px;
+    margin-left: 30px;
+    margin-top: 0;
+}
+h1{
+    width: 1000px;
+    border-bottom: 2px solid gray;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+ul{
+    width: 120px;
+    margin: 0;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 0;
+    border-top: 2px solid #333;
+    font-size: 13px;
+}
+li{
+    margin-bottom: 2px;
+}
+a{
+    text-decoration-line: none;
+    color: black;
+}
+td{
+    width: 100px;
+    height: 55px;
+    font-size: 12px;
+}
