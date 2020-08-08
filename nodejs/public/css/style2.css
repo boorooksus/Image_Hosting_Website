@@ -1,0 +1,45 @@
+.btn-category{
+    display: block;
+    width: 860px;
+    height: 30px;
+    margin: 46px auto 0;
+    position: relative;
+  }
+  .post-title{
+    width: 860px;
+    margin: 18px auto 17px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+  }
+  .textarea-title{
+    display: block;
+    width: 100%;
+    height: 56px;
+    border: none;
+    font-size: 30px;
+    resize: none;
+    color: black;
+    outline: none;
+    line-height: 40px;
+    overflow: hidden;
+    letter-spacing: -.4px;
+  }
+  .post-content{
+    width: 860px;
+    margin: 18px auto 17px;
+    padding-bottom: 26px;
+  }
+  .textarea-content{
+    display: block;
+    width: 100%;
+    color: black;
+    overflow: hidden;
+    border: none;
+    resize: none;
+    outline: none;
+  }
+  .post-ui{
+    width: 860px;
+    margin: 18px auto 17px;
+    text-align: right;
+  }
