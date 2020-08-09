@@ -27,8 +27,8 @@ router.get('/', function(request, response){
            </div>
     
            <div class="membership">
-            <a href="/topic/login">sign in</a>
-            <a href="/topic/join">sign up</a>
+            <a href="/auth/login">sign in</a>
+            <a href="/auth/join">sign up</a>
            </div>
            <div class="contents">
              <h1 class='contents_name'>WEB_14</h1>

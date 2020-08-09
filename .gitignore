@@ -1,11 +1,16 @@
 db.js
 db_mysql.js
 author_mysql.js
+auth_session.js
 template_express.js
 template_mysql.js
+template_session.js
 main_express.js
 main_mysql.js
+main_session.js
 index_express.js
 index_mysql.js
+index_session.js
 topic_express.js
 topic_mysql.js
+topic_session.js
