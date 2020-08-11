@@ -1,8 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var auth = require('../lib/auth.js');
 
 
 router.get('/', function(request, response){
+    var authStatusUi = auth.statusUi(request, response);
+    console.log(auth.statusUi(request,response));
+    //console('request: ', request);
+    //console('response: ', response);
     var html = `
     <!DOCTYPE html>
     <html>
@@ -27,7 +32,8 @@ router.get('/', function(request, response){
            </div>
     
            <div class="membership">
-            <a href="/auth/login">sign in</a>
+           ${authStatusUi}
+            
             <a href="/auth/join">sign up</a>
            </div>
            <div class="contents">

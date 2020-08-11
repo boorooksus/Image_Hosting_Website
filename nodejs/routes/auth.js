@@ -10,7 +10,7 @@ router.get('/login', (request, response) => {
         <head>
         <style>
             html{
-            background-image:url(nyc.jpg);
+            background-image:url(/images/nyc.jpg);
             background-repeat:no-repeat;
             background-size:cover;
             }

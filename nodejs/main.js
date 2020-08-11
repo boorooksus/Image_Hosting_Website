@@ -7,8 +7,8 @@ var compression = require('compression');
 var topicRouter = require('./routes/topic.js');
 var indexRouter = require('./routes/index.js');
 var authRouter = require('./routes/auth.js');
-//var session = require('express-session')
-//var FileStore = require('session-file-store')(session);
+var session = require('express-session')
+var FileStore = require('session-file-store')(session);
 //var db = require('./lib/db.js');
 
 var helmet = require('helmet');
@@ -18,13 +18,13 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(compression());
 
-// app.use(session({
-//     secret: 'keyboard cat',
-//     resave: false,
-//     saveUninitialized: true,
-//     // session 추가되면 session 폴더 안에 파일로 저장
-//     store:new FileStore()
-//   }))
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    // session 추가되면 session 폴더 안에 파일로 저장
+    store:new FileStore()
+  }))
 
 // get에 대해서만 적용되는 middleware. db에 맞게 고칠것
 app.get('*', function(request, response, next){
