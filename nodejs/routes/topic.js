@@ -12,6 +12,7 @@ var _storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname);
+      console.log('file ========== ', file);
     }
   });
 var upload = multer({storage: _storage}) //dest : 저장 위치
