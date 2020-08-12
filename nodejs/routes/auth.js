@@ -116,9 +116,9 @@ router.post('/login_process', (request, response)=>{
         }
         else{
             request.session.is_logined = true;
-            request.session.id = post.id
+            request.session.nickname = post.id;
             // session 객체의 데이터를 session store에 반영.
-            request. session.save(function(){
+            request.session.save(function(){
                 // call back 함수로 메인 페이지로 redirection하게 해서 session 저장 작업이 끝난 후에 수행하게함. 이렇게 안하면 session 저장이 끝나기 전에 redirection이 되서 로그인 안된 채로 메인화면으로 갈 수도 있음
                 response.redirect(302, `/`);
             });

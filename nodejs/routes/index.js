@@ -33,8 +33,6 @@ router.get('/', function(request, response){
     
            <div class="membership">
            ${authStatusUi}
-            
-            <a href="/auth/join">sign up</a>
            </div>
            <div class="contents">
              <h1 class='contents_name'>WEB_14</h1>
