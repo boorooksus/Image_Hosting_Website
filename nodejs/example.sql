@@ -11,14 +11,16 @@ CREATE TABLE `user` (
 -- Table structure for table `topic`
 --
  
-CREATE TABLE `topic` (
+CREATE TABLE `upload` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(30) NOT NULL,
   `description` text,
   `created` datetime NOT NULL,
-  `author_id` int(11) DEFAULT NULL,
+  `author_id` varchar(20) NOT NULL,
+  `img_name` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
 );
+
  
 --
 -- Dumping data for table `topic`

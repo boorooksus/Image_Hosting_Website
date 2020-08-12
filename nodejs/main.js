@@ -15,6 +15,7 @@ var helmet = require('helmet');
 
 app.use(helmet());
 app.use(express.static('public'));
+//app.use('/topic', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(compression());
 
