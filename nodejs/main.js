@@ -9,7 +9,7 @@ var indexRouter = require('./routes/index.js');
 var authRouter = require('./routes/auth.js');
 var session = require('express-session')
 var FileStore = require('session-file-store')(session);
-//var db = require('./lib/db.js');
+var db = require('./lib/db.js');
 
 var helmet = require('helmet');
 

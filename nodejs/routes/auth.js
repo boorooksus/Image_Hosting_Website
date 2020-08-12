@@ -69,7 +69,7 @@ router.get('/login', (request, response) => {
             <input id="idn" type="text" name="id" placeholder="ID">
             </div>
             <div>
-            <input id="pwd" type="password" name="pwd" placeholder="Password">
+            <input id="pwd" type="password" name="password" placeholder="Password">
             </div>
             <div>
             <button type="submit">Login</button>
@@ -99,15 +99,19 @@ router.get('/logout', (request, response) => {
 
 router.post('/login_process', (request, response)=>{
     var post = request.body;
-
-    db.query(`SELECT * FROM user WHERE id = ${post.id}`,(err, res) => {
+    console.log('id: ', post.id);
+    db.query(`SELECT * FROM user WHERE id = '${post.id}'`,(err, res) => {
         if(err){
             throw(err);
         }
         else if(res.length === 0){
+            console.log('id not found');
             response.send('login failed');
         }
-        else if(res[0].password !== post.password){
+        else if(res[0].password !== `${post.password}`){
+            console.log('===password is not correct===');
+            console.log('post.password: ', post.password);
+            console.log('input: ', res[0].password);
             response.send('login failed');
         }
         else{
