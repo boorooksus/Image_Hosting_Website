@@ -5,9 +5,6 @@ var auth = require('../lib/auth.js');
 
 router.get('/', function(request, response){
     var authStatusUi = auth.statusUi(request, response);
-    console.log(auth.statusUi(request,response));
-    //console('request: ', request);
-    //console('response: ', response);
     var html = `
     <!DOCTYPE html>
     <html>

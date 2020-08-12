@@ -139,7 +139,7 @@ router.get('/browsing/:pageNum', (request, response) => {
             <style>
               #columns{
                 margin-top:50px;
-                column-width:350px;
+                column-width:250px;
                 column-gap: 15px;
               }
               #columns figure{
@@ -194,20 +194,85 @@ router.post('/delete_process', (request, response) => {
 });
 
 
-// router.post('/search_process', (request, response)=>{
-//     var post = request.body;
-
-//     db.query(`
-//         SELECT * FROM POST WHERE TITLE LIKE '%${post.term}%;
-//         `, (err, res) => {
-//             if(err){
-//                 throw err;
-//             }
-//             // response.writeHead(302, {location:`/?id=${result.insertId}`});
-//             // response.end();
-//             response.redirect(302, `/search_result/`);
-//         }
-//     )
-// });
+router.post('/search_process', (request, response)=>{
+    var post = request.body;
+    console.log('arrive');
+    db.query(`
+        SELECT * FROM upload WHERE title LIKE '%${post.term}%';
+        `, (err, result) => {
+            if(err){
+                throw err;
+            }
+            console.log('after db');
+            console.log('result: ', result);
+            var list = '<div id="columns">';
+            var cur = 0;
+            //var end = cur + 20;
+            while(cur < result.length){
+                list = list + `
+                <figure>
+                    <a href="/topic/${result[cur].title}">
+                    <img src="/uploads/${result[cur].img_name}"></a>
+                    <figcaption>${result[cur].description}</figcaption>
+                </figure>
+                `;
+                cur += 1;
+            }
+            list += `</div>`;
+            var authStatusUi = auth.statusUi(request, response);
+            console.log('list: ', list);
+            var html = `
+            <!doctype html>
+            <html>
+              <head>
+                <meta charset="utf-8">
+                <title>browsing</title>
+                <link rel="stylesheet" href="/css/reset.css">
+                <link rel="stylesheet" href="/css/style.css">
+                <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+                <style>
+                  #columns{
+                    margin-top:50px;
+                    column-width:350px;
+                    column-gap: 15px;
+                  }
+                  #columns figure{
+                    display: inline-block;
+                    border:1px solid rgba(0,0,0,0.2);
+                    margin:0;
+                    margin-bottom: 15px;
+                    padding:10px;
+                    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
+                  }
+                  #columns figure img{
+                    width:100%;
+                  }
+                  #columns figure figcaption{
+                    border-top:1px solid rgba(0,0,0,0.2);
+                    padding:10px;
+                    margin-top:11px;
+                  }
+    
+                  .membership a{
+                      color: black;
+                      border: 1px solid black;
+                  }
+                </style>
+                </head>
+                <body>
+                    <div class="membership">
+                    ${authStatusUi}
+                    </div>
+                  ${list}
+                </body>
+            </html>
+            `
+            response.send(html);
+            // response.writeHead(302, {location:`/?id=${result.insertId}`});
+            // response.end();
+            //response.redirect(302, `/search_result/`);
+        }
+    )
+});
 
 module.exports = router;
