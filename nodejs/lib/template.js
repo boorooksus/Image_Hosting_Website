@@ -12,8 +12,10 @@ module.exports = {
             <style>
               #columns{
                 margin-top:50px;
+                margin-left:10px;
+                margin-right:10px;
                 column-width:200px;
-                column-gap: 15px;
+                column-gap: 10px;
               }
               #columns figure{
                 display: inline-block;

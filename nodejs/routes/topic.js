@@ -26,8 +26,7 @@ router.get('/create', (request, response) => {
         response.redirect('/auth/login');
         return false;
     }
-    // user_name 받도록 나중에 수정
-    //var user_name = request.
+    var authStatusUi = auth.statusUi(request, response);
     var html = `     
         <!DOCTYPE html>
         <html>
@@ -35,21 +34,25 @@ router.get('/create', (request, response) => {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link rel="stylesheet" href="/css/style2.css">
-                <title>글 작성</title>
+                <title>create</title>
             </head>
+
             <body>
+                <div class="membership">
+                ${authStatusUi}
+                </div>
                 <form action = "/topic/create_process" method="post" enctype="multipart/form-data">
-                <div class ="main">
                 <input type="hidden" name="author_id" value="${request.session.nickname}">
-                <input type="file" name="img" />
-                    <div class = "post-title">
-                        <textarea class = "textarea-title" placeholder="제목을 입력하세요." name="title" style = "height: 42px;"></textarea>
-                    </div>
-                    <div class = "post-content">
-                        <textarea class = "textarea-content" name="description" style = "height: 500px;"></textarea>
-                    </div>
-                </div> 
-                <div class = "post-ui">
+                <div id="image">
+                <input type="file" name="img">
+                </div>
+                <div id="title">
+                    <textarea placeholder="제목" name="title"></textarea>
+                </div>
+                <div id="description">
+                    <textarea placeholder="내용" name="description"></textarea>
+                </div>
+                <div id=submit_ui>
                     <input type = "submit">
                 </div>
                 </form>
