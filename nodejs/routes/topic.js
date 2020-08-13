@@ -87,6 +87,7 @@ router.get('/:pageId', function(request, response, next){
                 <title>${sanitizedTitle}</title>
                 <meta charset="utf-8">
                 <link rel="stylesheet" href="/css/style2.css">
+                <script src="https://kit.fontawesome.com/8efa19c011.js" crossorigin="anonymous"></script>
             </head>
             <body>
 
@@ -94,24 +95,22 @@ router.get('/:pageId', function(request, response, next){
                 ${authStatusUi}
                 </div>
                 <div class="membership2">
-                <a href="/topic/browsing/1">back</a>
-
+                <a href="/"><i class="fas fa-home"></i></a>
+                <a href="/topic/browsing/1"><i class="fas fa-list"></i></a>
                 </div>
-
-
                 <div id="title">
                 <h3>${title}</h3>
                 </div>
                 <div id="description">
-                    <img src="/uploads/${result[0].img_name}" style="width:500px; display:block;">
+                    <img src="/uploads/${result[0].img_name}">
                     ${sanitizedDescription}<br><br>
-                    posted by ${result[0].author_id}<br><br>
+                    <p>posted by <strong>${result[0].author_id}</strong></p>
                     
                     <form action=
                         "/topic/delete_process" method="post" onsubmit="return confirm('Do you want to delete?')" style="display:inline;">
                         <input type="hidden" name="id" value="${result[0].id}"><input type="submit" value="delete" style="display:inline;">
                     </form>
-                    <a href="/topic/update/${title}" style="display:inline;">update</a>
+                    <a href="/topic/update/${title}" style="display:inline;"><button type="button">update</button></a>
                 </div>
 
                 

@@ -65,13 +65,14 @@ module.exports = {
                 margin-right: 20px;
                 
               }
-
               
             </style>
+            <script src="https://kit.fontawesome.com/8efa19c011.js" crossorigin="anonymous"></script>
             </head>
             <body>
                 <div class="membership2">
-                <a href="/topic/create" style="text-align:right;">create</a>
+                <a href="/"><i class="fas fa-home"></i></a>
+                <a href="/topic/create"><i class="fas fa-plus"></i></a>
 
                 </div>
 

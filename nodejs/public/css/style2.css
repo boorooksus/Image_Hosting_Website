@@ -8,9 +8,17 @@
     width: 650px;
     margin: 18px auto 17px;
     margin-top: 50px;
-    padding-bottom: 5px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
     border-bottom: 1px solid LightGray;
   }
+
+  #title h3{
+
+    margin-bottom: 0px;
+    
+  }
+
   #title textarea, h3{
     display: block;
     width: 100%;
@@ -42,6 +50,14 @@
 
     /*outline: none;*/
   }
+
+  #description img {
+    width:500px; 
+    display:block; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
+
   #submit_ui{
     width: 860px;
     margin: 18px auto 17px;
