@@ -21,7 +21,10 @@ CREATE TABLE `upload` (
   PRIMARY KEY (`id`)
 );
 
- 
+ALTER TABLE upload MODIFY title text NOT NULL;
+
+
+출처: https://extbrain.tistory.com/39 [확장형 뇌 저장소] 
 --
 -- Dumping data for table `topic`
 --

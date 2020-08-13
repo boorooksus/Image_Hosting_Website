@@ -6,14 +6,14 @@ var router = express.Router();
 var db = require('../lib/db.js');
 var auth = require('../lib/auth.js');
 var template = require('../lib/template.js');
-var multer = require('multer')
+var multer = require('multer');
+const { filter } = require('compression');
 var _storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'public/uploads/')
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname);
-      console.log('file ========== ', file);
     }
   });
 var upload = multer({storage: _storage}) //dest : 저장 위치
@@ -95,8 +95,10 @@ router.get('/:pageId', function(request, response, next){
                    posted by ${result[0].author_id}
                     <form action=
                         "/topic/delete_process" method="post" onsubmit="return confirm('Do you want to delete?')">
-                        <input type="hidden" name="id" value="${result[0].id}"><input type="submit" value="delete">
+                        <input type="hidden" name="id" value="${result[0].id}"><input type="submit" value="delete" style="display:block;">
                     </form>
+                    <a href="/topic/update/${title}">update</a>
+                    
                 </div>
                 
             </body>
@@ -210,38 +212,58 @@ router.post('/search/:pageNum', (request, response)=>{
 
 router.get('/update/:pageId', (request, response) => {
     var filteredId = path.parse(request.params.pageId).base;
+    db.query(`SELECT * FROM upload WHERE title=?`,[filteredId],function(error, result){
+        if(request.session.nickname === result[0].author_id || request.session.nickname === 'admin'){
+            var html = `     
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" href="/css/style2.css">
+                    <title>글 수정</title>
+                </head>
+                <body>
+                    <form action = "/topic/update_process" method="post" enctype="multipart/form-data">
+                    <div class ="main">
+                    <input type="hidden" name="author_id" value="${request.session.nickname}">
+                    <input type="hidden" name="upload_id" value="${result[0].id}">
+                    <input type="file" name="img" />
+                        <div class = "post-title">
+                            <textarea class = "textarea-title" name="title" style = "height: 42px;">${result[0].title}</textarea>
+                        </div>
+                        <div class = "post-content">
+                            <textarea class = "textarea-content" name="description" style = "height: 500px;">${result[0].description}</textarea>
+                        </div>
+                    </div> 
+                    <div class = "post-ui">
+                        <input type = "submit">
+                    </div>
+                    </form>
+                </body>
+            </html>
+            `;
+        response.send(html); 
+        }
+        else{
+            response.send('작성자가 아닙니다');
+        }
+    }); 
+});
 
-    // db.query(`SELECT * FROM upload WHERE id=?`,[post.id],function(error, result){
-    //     if(request.session.nickname === result[0].author_id || request.session.nickname === 'admin'){
-    //         db.query(`DELETE FROM upload WHERE id=?`,[post.id],function(error, result){
-    //             response.redirect(302, `/topic/browsing/1`);
-    //         }); 
-    //     }
-    //     else{
-    //         response.send('작성자가 아닙니다');
-    //     }
-    // }); 
-
-    // fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
-    //     var title = request.params.pageId;
-    //     var list = template.list(request.list);
-    //     var html = template.html(title, list,
-    //         `
-    //         <form action="/topic/update_process" method="post">
-    //             <input type="hidden" name="id" placeholder="title" value="${title}">
-    //             <p></p><input type="text" name="title" placeholder="Title" value="${title}"></p>
-    //             <p>
-    //                 <textarea name="description" placeholder="description">${description}</textarea>
-    //             </p>
-    //             <p>
-    //                 <input type="submit">
-    //             </p>
-    //         </form>
-    //         `,
-    //         `<a href="/topic/create">create</a> <a href="/topic/update/${title}">update</a>`
-    //     );
-    //     response.send(html);
-    // });
+router.post('/update_process',upload.single('img'), (request, response) => {
+    var post = request.body;
+    console.log("Arrive");
+    console.log('post', request.body);
+    db.query(`
+        UPDATE upload SET title=?, description=?, img_name=? WHERE id=?`, [post.title, post.description,request.file.originalname, post.upload_id], (error, result) => {
+            console.log('after db');
+            if(error){
+                throw error;
+            }
+            response.redirect(302, `/topic/${post.title}`);
+        }
+    );
 })
 
 module.exports = router;
