@@ -13,7 +13,7 @@ CREATE TABLE `user` (
  
 CREATE TABLE `upload` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(30) NOT NULL,
+  `title` text,
   `description` text,
   `created` datetime NOT NULL,
   `author_id` varchar(20) NOT NULL,

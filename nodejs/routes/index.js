@@ -34,7 +34,7 @@ router.get('/', function(request, response){
            <div class="contents">
              <h1 class='contents_name'>WEB_14</h1>
               <div class="contents_searching">
-                <form action="/topic/search_process" method="post">
+                <form action="/topic/search/1" method="post">
                   <input type="text" name="term" placeholder="검색어 입력">
                   <button>검색</button>
                 </form>
@@ -42,7 +42,7 @@ router.get('/', function(request, response){
               <div class="contents_main">
                 <ul class="contents_list">
                   <li><a href="/topic/create"><i class="far fa-plus-square"></i></a><div style="color:#fbbc05">add</div></li>
-                  <li><a href="/topic/browsing/01"><i class="fas fa-list"></i></a><div style="color:#fbbc05">list</div></li>
+                  <li><a href="/topic/browsing/1"><i class="fas fa-list"></i></a><div style="color:#fbbc05">list</div></li>
                   <li><a href="#"><i class="fas fa-hashtag"></i></a><div style="color:#fbbc05">tag</div></li>
                   <li><a href="#"><i class="fas fa-ellipsis-h"></i></a><div style="color:#fbbc05">more</div></li>
                 </ul>

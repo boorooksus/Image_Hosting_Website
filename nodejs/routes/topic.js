@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../lib/db.js');
 var auth = require('../lib/auth.js');
+var template = require('../lib/template.js');
 var multer = require('multer')
 var _storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -110,7 +111,7 @@ router.get('/:pageId', function(request, response, next){
 
 router.get('/browsing/:pageNum', (request, response) => {
     var pageNum = request.params.pageNum;
-    db.query(`SELECT * FROM upload`, (error, result) => {
+    db.query(`SELECT * FROM upload ORDER BY id DESC`, (error, result) => {
 
         var list = '<div id="columns">';
         var cur = (pageNum - 1) * 20;
@@ -126,54 +127,22 @@ router.get('/browsing/:pageNum', (request, response) => {
             cur += 1;
         }
         list += `</div>`
+
+        var pageList = `<div id=page_list><ol>`;
+        var i = 1;
+        while(i < (result.length / 20 + 1)){
+            if(i === Number(pageNum)){
+                pageList += `<strong><li><a href="/topic/browsing/${i}">[${i}]</a></li></strong>`;
+            }
+            else{
+                pageList += `<li><a href="/topic/browsing/${i}">[${i}]</a></li>`;
+            }
+            i += 1;
+        }
+        i += `</ol></div>`
         var authStatusUi = auth.statusUi(request, response);
 
-        var html = `
-        <!doctype html>
-        <html>
-          <head>
-            <meta charset="utf-8">
-            <title>browsing</title>
-            <link rel="stylesheet" href="/css/reset.css">
-            <link rel="stylesheet" href="/css/style.css">
-            <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-            <style>
-              #columns{
-                margin-top:50px;
-                column-width:250px;
-                column-gap: 15px;
-              }
-              #columns figure{
-                display: inline-block;
-                border:1px solid rgba(0,0,0,0.2);
-                margin:0;
-                margin-bottom: 15px;
-                padding:10px;
-                box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
-              }
-              #columns figure img{
-                width:100%;
-              }
-              #columns figure figcaption{
-                border-top:1px solid rgba(0,0,0,0.2);
-                padding:10px;
-                margin-top:11px;
-              }
-
-              .membership a{
-                  color: black;
-                  border: 1px solid black;
-              }
-            </style>
-            </head>
-            <body>
-                <div class="membership">
-                ${authStatusUi}
-                </div>
-              ${list}
-            </body>
-        </html>
-        `
+        var html = template.html(list, authStatusUi, pageList);
         response.send(html)
     });
 });
@@ -185,7 +154,7 @@ router.post('/delete_process', (request, response) => {
     db.query(`SELECT * FROM upload WHERE id=?`,[post.id],function(error, result){
         if(request.session.nickname === result[0].author_id || request.session.nickname === 'admin'){
             db.query(`DELETE FROM upload WHERE id=?`,[post.id],function(error, result){
-                response.redirect(302, `/topic/browsing/01`);
+                response.redirect(302, `/topic/browsing/1`);
             }); 
         }
         else{
@@ -195,21 +164,19 @@ router.post('/delete_process', (request, response) => {
 });
 
 
-router.post('/search_process', (request, response)=>{
+router.post('/search/:pageNum', (request, response)=>{
+    var pageNum = request.params.pageNum;
     var post = request.body;
-    console.log('arrive');
     db.query(`
         SELECT * FROM upload WHERE title LIKE '%${post.term}%';
         `, (err, result) => {
             if(err){
                 throw err;
             }
-            console.log('after db');
-            console.log('result: ', result);
             var list = '<div id="columns">';
-            var cur = 0;
-            //var end = cur + 20;
-            while(cur < result.length){
+            var cur = (pageNum-1) * 20;
+            var end = cur + 20;
+            while(cur < end && cur < result.length){
                 list = list + `
                 <figure>
                     <a href="/topic/${result[cur].title}">
@@ -220,60 +187,61 @@ router.post('/search_process', (request, response)=>{
                 cur += 1;
             }
             list += `</div>`;
+
+            var pageList = `<div id=page_list><ol>`;
+            var i = 1;
+            while(i < (result.length / 20 + 1)){
+                if(i === Number(pageNum)){
+                    pageList += `<strong><li><a href="/topic/browsing/${i}">[${i}]</a></li></strong>`;
+                }
+                else{
+                    pageList += `<li><a href="/topic/browsing/${i}">[${i}]</a></li>`;
+                }
+                i += 1;
+            }
+            i += `</ol></div>`
+
             var authStatusUi = auth.statusUi(request, response);
-            console.log('list: ', list);
-            var html = `
-            <!doctype html>
-            <html>
-              <head>
-                <meta charset="utf-8">
-                <title>browsing</title>
-                <link rel="stylesheet" href="/css/reset.css">
-                <link rel="stylesheet" href="/css/style.css">
-                <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-                <style>
-                  #columns{
-                    margin-top:50px;
-                    column-width:350px;
-                    column-gap: 15px;
-                  }
-                  #columns figure{
-                    display: inline-block;
-                    border:1px solid rgba(0,0,0,0.2);
-                    margin:0;
-                    margin-bottom: 15px;
-                    padding:10px;
-                    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
-                  }
-                  #columns figure img{
-                    width:100%;
-                  }
-                  #columns figure figcaption{
-                    border-top:1px solid rgba(0,0,0,0.2);
-                    padding:10px;
-                    margin-top:11px;
-                  }
-    
-                  .membership a{
-                      color: black;
-                      border: 1px solid black;
-                  }
-                </style>
-                </head>
-                <body>
-                    <div class="membership">
-                    ${authStatusUi}
-                    </div>
-                  ${list}
-                </body>
-            </html>
-            `
-            response.send(html);
-            // response.writeHead(302, {location:`/?id=${result.insertId}`});
-            // response.end();
-            //response.redirect(302, `/search_result/`);
+            var html = template.html(list, authStatusUi, pageList);
+            response.send(html)
         }
     )
 });
+
+router.get('/update/:pageId', (request, response) => {
+    var filteredId = path.parse(request.params.pageId).base;
+
+    // db.query(`SELECT * FROM upload WHERE id=?`,[post.id],function(error, result){
+    //     if(request.session.nickname === result[0].author_id || request.session.nickname === 'admin'){
+    //         db.query(`DELETE FROM upload WHERE id=?`,[post.id],function(error, result){
+    //             response.redirect(302, `/topic/browsing/1`);
+    //         }); 
+    //     }
+    //     else{
+    //         response.send('작성자가 아닙니다');
+    //     }
+    // }); 
+
+    // fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
+    //     var title = request.params.pageId;
+    //     var list = template.list(request.list);
+    //     var html = template.html(title, list,
+    //         `
+    //         <form action="/topic/update_process" method="post">
+    //             <input type="hidden" name="id" placeholder="title" value="${title}">
+    //             <p></p><input type="text" name="title" placeholder="Title" value="${title}"></p>
+    //             <p>
+    //                 <textarea name="description" placeholder="description">${description}</textarea>
+    //             </p>
+    //             <p>
+    //                 <input type="submit">
+    //             </p>
+    //         </form>
+    //         `,
+    //         `<a href="/topic/create">create</a> <a href="/topic/update/${title}">update</a>`
+    //     );
+    //     response.send(html);
+    // });
+})
 
 module.exports = router;
