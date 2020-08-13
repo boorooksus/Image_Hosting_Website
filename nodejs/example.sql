@@ -6,6 +6,7 @@ CREATE TABLE `user` (
  
  INSERT INTO `user` VALUES ('user01', '0000');
  INSERT INTO `user` VALUES ('user02', '0000');
+ INSERT INTO `user` VALUES ('admin', 'admin');
  
 --
 -- Table structure for table `topic`

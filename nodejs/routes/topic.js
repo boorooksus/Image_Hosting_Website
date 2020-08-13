@@ -215,6 +215,7 @@ router.post('/search/:pageNum', (request, response)=>{
 
 router.get('/update/:pageId', (request, response) => {
     var filteredId = path.parse(request.params.pageId).base;
+    var authStatusUi = auth.statusUi(request, response);
     db.query(`SELECT * FROM upload WHERE title=?`,[filteredId],function(error, result){
         if(request.session.nickname === result[0].author_id || request.session.nickname === 'admin'){
             var html = `     
@@ -227,19 +228,24 @@ router.get('/update/:pageId', (request, response) => {
                     <title>글 수정</title>
                 </head>
                 <body>
+                    <div class="membership">
+                    ${authStatusUi}
+                    </div>
                     <form action = "/topic/update_process" method="post" enctype="multipart/form-data">
                     <div class ="main">
                     <input type="hidden" name="author_id" value="${request.session.nickname}">
                     <input type="hidden" name="upload_id" value="${result[0].id}">
-                    <input type="file" name="img" />
-                        <div class = "post-title">
-                            <textarea class = "textarea-title" name="title" style = "height: 42px;">${result[0].title}</textarea>
-                        </div>
-                        <div class = "post-content">
-                            <textarea class = "textarea-content" name="description" style = "height: 500px;">${result[0].description}</textarea>
-                        </div>
-                    </div> 
-                    <div class = "post-ui">
+                    <div id="image">
+                    <input type="file" name="img">
+                    </div>
+
+                    <div id="title">
+                    <textarea name="title">${result[0].title}</textarea>
+                    </div>
+                    <div id="description">
+                        <textarea name="description">${result[0].description}</textarea>
+                    </div>
+                    <div id=submit_ui>
                         <input type = "submit">
                     </div>
                     </form>
