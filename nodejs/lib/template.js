@@ -5,7 +5,7 @@ module.exports = {
         <html>
           <head>
             <meta charset="utf-8">
-            <title>browsing</title>
+            <title>web_14</title>
             <link rel="stylesheet" href="/css/reset.css">
             <link rel="stylesheet" href="/css/style.css">
             <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">

@@ -7,21 +7,23 @@
   #title{
     width: 650px;
     margin: 18px auto 17px;
+    margin-top: 50px;
     padding-bottom: 5px;
     border-bottom: 1px solid LightGray;
   }
-  #title textarea{
+  #title textarea, h3{
     display: block;
-    width: 80%;
+    width: 100%;
     height: 42px;
     border: none;
     font-size: 20px;
     resize: none;
     color: black;
-    outline: none;
+    /*outline: none;*/
     line-height: 40px;
     overflow: hidden;
     letter-spacing: -.4px;
+    margin-top:10px;
   }
   #description{
     width: 650px;
@@ -32,16 +34,18 @@
     display: block;
     font-size: 20px;
     height: 200px;
-    width: 80%;
+    width: 100%;
     color: black;
     overflow: hidden;
     border: none;
-    resize: none;
-    outline: none;
+    margin-bottom: 10px;
+
+    /*outline: none;*/
   }
   #submit_ui{
     width: 860px;
     margin: 18px auto 17px;
+    
   }
 
   .membership{
@@ -68,3 +72,21 @@
   .membership a:hover{color: #fbbc05; border-color: #fbbc05;}
   
   .membership a:last-child{margin-right: 0;}
+
+  .membership2{
+    position: absolute;
+    top: 1.5%;
+    left: 10%;
+    margin-left: -40px;
+    z-index: 20;
+  }
+  
+  .membership2 a{
+    text-decoration:none;
+    font-size: 20px;
+    
+    color: black;
+    display: inline-block;
+    margin-right: 20px;
+    
+  }

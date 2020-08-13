@@ -43,16 +43,12 @@ router.get('/create', (request, response) => {
                 </div>
                 <form action = "/topic/create_process" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="author_id" value="${request.session.nickname}">
-                <div id="image">
-                <input type="file" name="img">
-                </div>
                 <div id="title">
+                <input type="file" name="img">
                     <textarea placeholder="제목" name="title"></textarea>
                 </div>
                 <div id="description">
                     <textarea placeholder="내용" name="description"></textarea>
-                </div>
-                <div id=submit_ui>
                     <input type = "submit">
                 </div>
                 </form>
@@ -79,6 +75,7 @@ router.post('/create_process',upload.single('img'), (request, response, next)=>{
 router.get('/:pageId', function(request, response, next){
     var title = request.params.pageId;
     var sanitizedTitle = sanitizeHtml(title);
+    var authStatusUi = auth.statusUi(request, response);
     var filteredId = path.parse(request.params.pageId).base;
     db.query(`SELECT * FROM upload WHERE title='${title}'`, function(err, result){
         var description = result[0].description;
@@ -89,22 +86,34 @@ router.get('/:pageId', function(request, response, next){
             <head>
                 <title>${sanitizedTitle}</title>
                 <meta charset="utf-8">
+                <link rel="stylesheet" href="/css/style2.css">
             </head>
             <body>
-            <a href="/">Web_14</a>
-            <a href="/topic/browsing/1">Back to list</a>
-            <h3>${title}</h3>
-                <div id="grid">
-                    <img src="/uploads/${result[0].img_name}" style="width:500px; display:block;">
-                   ${sanitizedDescription}<br><br>
-                   posted by ${result[0].author_id}
-                    <form action=
-                        "/topic/delete_process" method="post" onsubmit="return confirm('Do you want to delete?')">
-                        <input type="hidden" name="id" value="${result[0].id}"><input type="submit" value="delete" style="display:block;">
-                    </form>
-                    <a href="/topic/update/${title}">update</a>
-                    
+
+                <div class="membership">
+                ${authStatusUi}
                 </div>
+                <div class="membership2">
+                <a href="/topic/browsing/1">back</a>
+
+                </div>
+
+
+                <div id="title">
+                <h3>${title}</h3>
+                </div>
+                <div id="description">
+                    <img src="/uploads/${result[0].img_name}" style="width:500px; display:block;">
+                    ${sanitizedDescription}<br><br>
+                    posted by ${result[0].author_id}<br><br>
+                    
+                    <form action=
+                        "/topic/delete_process" method="post" onsubmit="return confirm('Do you want to delete?')" style="display:inline;">
+                        <input type="hidden" name="id" value="${result[0].id}"><input type="submit" value="delete" style="display:inline;">
+                    </form>
+                    <a href="/topic/update/${title}" style="display:inline;">update</a>
+                </div>
+
                 
             </body>
             </html>
@@ -235,19 +244,16 @@ router.get('/update/:pageId', (request, response) => {
                     <div class ="main">
                     <input type="hidden" name="author_id" value="${request.session.nickname}">
                     <input type="hidden" name="upload_id" value="${result[0].id}">
-                    <div id="image">
-                    <input type="file" name="img">
-                    </div>
 
                     <div id="title">
+                    <input type="file" name="img">
                     <textarea name="title">${result[0].title}</textarea>
                     </div>
                     <div id="description">
                         <textarea name="description">${result[0].description}</textarea>
-                    </div>
-                    <div id=submit_ui>
                         <input type = "submit">
                     </div>
+
                     </form>
                 </body>
             </html>
