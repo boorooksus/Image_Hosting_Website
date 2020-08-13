@@ -12,7 +12,7 @@ module.exports = {
             <style>
               #columns{
                 margin-top:50px;
-                column-width:250px;
+                column-width:200px;
                 column-gap: 15px;
               }
               #columns figure{
@@ -45,12 +45,38 @@ module.exports = {
                   color: black;
                   border: 1px solid black;
               }
+
+              .membership2{
+                position: absolute;
+                top: 1.5%;
+                left: 10%;
+                margin-left: -40px;
+                z-index: 20;
+              }
+              
+              .membership2 a{
+                text-decoration:none;
+                font-size: 20px;
+                
+                color: black;
+                display: inline-block;
+                margin-right: 20px;
+                
+              }
+
+              
             </style>
             </head>
             <body>
+                <div class="membership2">
+                <a href="/topic/create" style="text-align:right;">create</a>
+
+                </div>
+
                 <div class="membership">
                 ${authStatusUi}
                 </div>
+  
               ${list}
               ${pageList}
             </body>
