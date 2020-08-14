@@ -8,72 +8,23 @@ module.exports = {
             <title>web_14</title>
             <link rel="stylesheet" href="/css/reset.css">
             <link rel="stylesheet" href="/css/style.css">
+            <link rel="stylesheet" href="/css/style-template.css">
             <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-            <style>
-              #columns{
-                margin-top:50px;
-                margin-left:10px;
-                margin-right:10px;
-                column-width:200px;
-                column-gap: 10px;
-              }
-              #columns figure{
-                display: inline-block;
-                border:1px solid rgba(0,0,0,0.2);
-                margin:0;
-                margin-bottom: 15px;
-                padding:10px;
-                box-shadow: 2px 2px 5px rgba(0,0,0,0.5);;
-              }
-              #columns figure img{
-                width:100%;
-              }
-              #columns figure figcaption{
-                border-top:1px solid rgba(0,0,0,0.2);
-                padding:10px;
-                margin-top:11px;
-              }
-
-              #page_list{
-                text-align: center;
-              }
-
-              #page_list li{
-                display: inline;
-                text-align: center;
-                
-              }
-              .membership a{
-                  color: black;
-                  border: 1px solid black;
-              }
-
-              .membership2{
-                position: absolute;
-                top: 1.5%;
-                left: 10%;
-                margin-left: -40px;
-                z-index: 20;
-              }
-              
-              .membership2 a{
-                text-decoration:none;
-                font-size: 20px;
-                
-                color: black;
-                display: inline-block;
-                margin-right: 20px;
-                
-              }
-              
-            </style>
             <script src="https://kit.fontawesome.com/8efa19c011.js" crossorigin="anonymous"></script>
             </head>
             <body>
                 <div class="membership2">
                 <a href="/"><i class="fas fa-home"></i></a>
                 <a href="/topic/create"><i class="fas fa-plus"></i></a>
+                </div>
 
+                <div class="contents">
+                <div class="contents_searching">
+                <form action="/topic/search/1" method="post">
+                  <input type="text" name="term" placeholder="검색어 입력">
+                  <button>검색</button>
+                </form>
+                </div>
                 </div>
 
                 <div class="membership">
