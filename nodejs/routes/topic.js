@@ -181,7 +181,7 @@ router.post('/search/:pageNum', (request, response)=>{
     var pageNum = request.params.pageNum;
     var post = request.body;
     db.query(`
-        SELECT * FROM upload WHERE title LIKE '%${post.term}%';
+        SELECT * FROM upload WHERE title LIKE '%${post.term}%' or description LIKE '%${post.term}%';
         `, (err, result) => {
             if(err){
                 throw err;
