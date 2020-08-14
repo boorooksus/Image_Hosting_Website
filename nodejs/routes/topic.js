@@ -111,7 +111,10 @@ router.get('/:pageId', function(request, response, next){
                 <div id="description">
                     <img src="/uploads/${result[0].img_name}">
                     ${sanitizedDescription}<br><br>
-                    <p>posted by <strong>${result[0].author_id}</strong></p>
+                    <p>
+                    posted by <strong>${result[0].author_id}</strong><br>
+                    ${result[0].created}
+                    </p>
                     
                     <form action=
                         "/topic/delete_process" method="post" onsubmit="return confirm('Do you want to delete?')" style="display:inline;">
