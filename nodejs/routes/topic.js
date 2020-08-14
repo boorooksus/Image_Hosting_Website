@@ -60,7 +60,14 @@ router.get('/create', (request, response) => {
 
 router.post('/create_process',upload.single('img'), (request, response, next)=>{
     var post = request.body;
-    
+    if(request.file === undefined){
+        response.send('이미지를 첨부해주세요.');
+        return false;
+    }
+    else if(post.title === ''){
+        response.send('제목을 적어주세요');
+        return false;
+    }
     db.query(`
         INSERT INTO upload (title, description, created, author_id, img_name) VALUE(?, ?, NOW(), ?, ?)`, [post.title, post.description, post.author_id, request.file.originalname], (err, res) => {
             if(err){
@@ -124,7 +131,7 @@ router.get('/:pageId', function(request, response, next){
 
 router.get('/browsing/:pageNum', (request, response) => {
     var pageNum = request.params.pageNum;
-    db.query(`SELECT * FROM upload ORDER BY id DESC`, (error, result) => {
+    db.query(`SELECT * FROM upload WHERE title IS NOT NULL ORDER BY id DESC`, (error, result) => {
 
         var list = '<div id="columns">';
         var cur = (pageNum - 1) * postNum;
@@ -268,7 +275,11 @@ router.get('/update/:pageId', (request, response) => {
 router.post('/update_process',upload.single('img'), (request, response) => {
     var post = request.body;
     console.log("Arrive");
-    console.log('post', request.body);
+    console.log(request.file);
+    if(request.file === undefined){
+        response.send('이미지를 첨부해주세요.');
+        return false;
+    }
     db.query(`
         UPDATE upload SET title=?, description=?, img_name=? WHERE id=?`, [post.title, post.description,request.file.originalname, post.upload_id], (error, result) => {
             console.log('after db');
