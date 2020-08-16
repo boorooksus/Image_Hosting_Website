@@ -1,0 +1,47 @@
+html{
+    background-image:url(/images/nyc.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    }
+    div{
+    text-align:center;
+    /* border:1px solid gray; */
+    }
+    button{
+    float:center;
+    }
+    #idn, #pwd{
+    border:3px solid white;
+    border-radius:8px;
+    color:black;
+    height:40px;
+    width:600px;
+    font-size:20pt;
+    background:white;
+    margin:3px;
+    opacity:0.7;
+    }
+    button{
+    border:1px solid orange;
+    border-radius:8px;
+    color:white;
+    height:40px;
+    width:610px;
+    font-size:18pt;
+    background:orange;
+    margin:3px;
+    }
+    #cbw{
+    color:white;
+    }
+    h1{
+    margin:130px;
+    font-size:50pt;
+    color:white;
+    }
+    a{
+    color:white;
+    }
+    #a{
+    margin:30px;
+    }
