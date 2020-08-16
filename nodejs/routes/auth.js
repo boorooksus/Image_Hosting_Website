@@ -81,33 +81,86 @@ router.post('/login_process', (request, response)=>{
 
 router.get('/join', (request, response) => {
     var html = `     
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <meta charset ="utf-8" />
-        <title>회원가입</title>
-        </head>
-        <body>
-            <form name ='join' method="POST" action="php_check.php">
-            <h1>Input your information</h1>
-            <table border="1">
-                <label>ID : <input type="text" name="userid" /></label>
-                <br />
-                <label>PW : <input type="text" name="userpw" /></label>
-                <br />
-                <label>PW again: <input type="text" name="userpw_a" /></label> <!--비밀번호 재입력-->
-                <br />
-                <label>email : <input type="text" name="useremail" /></label>
-                <br />
-                <label>name : <input type="text" name="username" /></label>
-                <br />
-                <input type="submit" value="제출" onclick = "location.href='http://localhost/register.html'"> <!--클릭 시 onclick 이벤트 발생-->
-                <br />
-                <input type="reset" value="초기화"> <!-- 클릭 시 입력값 초기화-->
-            </table>
-            </form>
-        </body>
-        </html>
+    <!DOCTYPE html>
+    <html>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style-signup.css">
+        <script src="/js.script-signup.js"></script>
+        <title>SignUp</title>
+    </head>
+    
+    <body>
+        <h6 id="signUp"><a href="SignUp.html">회원 가입</a></h6>
+        <img src="#" alt="Add Image" width="1000px" height="350px">
+        <h4 class="title">회원 가입</h4>
+        <div id="grid">
+            <ul>
+                <li>전체 글 보기</li>
+                <br>
+                <li>게시판1</li>
+                <li>게시판2</li>
+                <li>게시판3</li>
+                <li>게시판4</li>
+            </ul>
+            <div id="inputInfo">
+                <table>
+                    <tr>
+                        <td>아이디</td>
+                        <td><input type="text" id="id" class="text" placeholder="아이디" onfocus="removeBlur(this)"
+                                onblur="blur(this)"></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td><input type="password" id="password" class="text" placeholder="비밀번호(숫자, 영어조합 10자 이상)"
+                                onfocus="removeBlur(this)" onblur="blur(this)" onkeyup="Judge.correct(this)"></td>
+                    </tr>
+                </table>
+                <p id="judgement_1"></p>
+                <table>
+                    <tr>
+                        <td>비밀번호 확인</td>
+                        <td><input type="password" id="pass_check" class="text" placeholder="비밀번호 확인"
+                                onfocus="removeBlur(this)" onblur="blur(this)" onkeyup="Judge.same(this)"></td>
+                    </tr>
+                </table>
+                <p id="judgement_2"></p>
+                <table>
+                    <tr>
+                        <td>이름</td>
+                        <td><input type="text" id="name" class="text" onfocus="removeBlur(this)" placeholder="이름"
+                                onblur="blur(this)">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>생년월일</td>
+                        <td><input type="date" id="birth" class="text" onfocus="removeBlur(this)" onblur="blur(this)"></td>
+                    </tr>
+                    <tr>
+                        <td>이메일</td>
+                        <td><input type="email" id="email" class="text" onfocus="removeBlur(this)" placeholder="이메일"
+                                onblur="blur(this)"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>성별</td>
+                        <td><input type="button" id="male" value="남" onclick="gender(this, '#female')"></td>
+                        <td><input type="button" id="female" value="여" onclick="gender(this, '#male')"></td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <br>
+                <input class="btn_submit" type="submit" value="회원가입" onclick="Judge.blank()">
+            </div>
+        </div>
+    
+    </body>
+    
+    </html>
     `;
     response.send(html);
 });
