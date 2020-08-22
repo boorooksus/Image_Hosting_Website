@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <style>
+    html{
+      background:url(landscape.jpg) no-repeat center center fixed;
+      background-size:cover;
+      height:100%;
+      overflow:auto;
+    }
+    div{
+      text-align:center;
+      /* border:1px solid gray; */
+    }
+    button{
+      float:center;
+    }
+    #idn, #pwd{
+      border:3px solid white;
+      border-radius:8px;
+      color:black;
+      height:40px;
+      width:500px;
+      font-size:20pt;
+      background:white;
+      margin:3px;
+      opacity:0.7;
+		}
+		#idn {
+			animation: fadein1 2s;
+		}
+		#pwd {
+			animation: fadein2 2s;
+		}
+		#idn:focus {
+			opacity:0.9;
+		}
+		#pwd:focus {
+			opacity:0.9;
+		}
+    button {
+      border:1px solid orange;
+      border-radius:8px;
+      color:white;
+      height:40px;
+      width:510px;
+      font-size:18pt;
+      background:orange;
+      margin:3px;
+			opacity: 1;
+			animation: fadein3 2s;
+    }
+		button:hover {
+			width:510px;
+			background-color: red;
+			border: red;
+		}
+    /* #cbw{
+      color:white;
+    } */
+		/* label {
+			animation: fadein3 2.5s;
+		} */
+    h1{
+      font-size:60pt;
+      color:white;
+			margin-top: 200px;
+			margin-bottom: 30px;
+			margin-left: auto;
+			margin-right: auto;
+    }
+    a{
+      color:white;
+    }
+    #a{
+      margin:30px;
+			animation: fadein4 2s;
+		}
+		#a1:hover{
+			font-weight: bold;
+		}
+		#a2:hover{
+			font-weight: bold;
+		}
+		#a3:hover{
+			font-weight: bold;
+		}
+		@keyframes fadein1 {
+	    0% {
+	      opacity:0;
+	    }
+			50% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 0.7;
+			}
+	  }
+		@keyframes fadein2 {
+	    0% {
+	      opacity:0;
+	    }
+	    60% {
+	      opacity:0;
+	    }
+			100% {
+				opacity:0.7;
+			}
+	  }
+		@keyframes fadein3 {
+			0% {
+				opacity:0;
+			}
+			70% {
+				opacity:0;
+			}
+			100% {
+				opacity:1;
+			}
+		}
+		@keyframes fadein4 {
+			0% {
+				opacity:0;
+			}
+			80% {
+				opacity:0;
+			}
+			100% {
+				opacity:1;
+			}
+		}
+  </style>
+</head>
+<body>
+  <form action="http://mung/login.php">
+    <div>
+      <h1>
+        Welcome!
+      </h1>
+    </div>
+    <div>
+      <input id="idn" type="text" name="id" placeholder="ID">
+    </div>
+    <div>
+      <input id="pwd" type="password" name="pwd" placeholder="Password">
+    </div>
+    <div>
+      <button type="submit">Login</button>
+    </div>
+    <!-- <div>
+      <label>
+        <input id="cbw" type="checkbox" name="size">로그인 상태 유지
+      </label>
+    </div> -->
+    <div id="a">
+      <a id="a1" href="inha2.html" style="text-decoration:none" target="_blank">아이디 찾기</a>
+      <a id="a2" href="inha3.html" style="text-decoration:none" target="_blank">비밀번호 찾기</a>
+      <a id="a3" href="https://haha/joining.php" style="text-decoration:none" target="_blank">회원가입</a>
+    </div>
+  </form>
+</body>
+</html>

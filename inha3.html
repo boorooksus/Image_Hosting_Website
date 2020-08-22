@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <style>
+    html{
+      background:url(landscape.jpg) no-repeat center center fixed;
+      background-size:cover;
+      height:100%;
+      overflow:auto;
+    }
+    div{
+      text-align:center;
+      /* border:1px solid gray; */
+    }
+    button{
+      float:center;
+    }
+    #idn, #em{
+      border:3px solid white;
+      border-radius:8px;
+      color:black;
+      height:40px;
+      width:500px;
+      font-size:20pt;
+      background:white;
+      margin:3px;
+      opacity:0.7;
+		}
+		#idn:focus {
+			opacity:0.9;
+		}
+		#em:focus {
+			opacity:0.9;
+		}
+    button {
+      border:1px solid orange;
+      border-radius:8px;
+      color:white;
+      height:40px;
+      width:510px;
+      font-size:18pt;
+      background:orange;
+      margin:3px;
+			opacity: 1;
+    }
+		button:hover {
+			width:510px;
+			background-color: red;
+			border: red;
+		}
+    h1{
+      font-size:60pt;
+      color:white;
+			margin-top: 200px;
+			margin-bottom: 30px;
+			margin-left: auto;
+			margin-right: auto;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>
+      Welcome!
+    </h1>
+  </div>
+  <div>
+    <input id="idn" type="text" name="id" placeholder="ID">
+  </div>
+  <div>
+    <input id="em" type="email" name="email" placeholder="Email">
+  </div>
+  <div>
+    <button type="submit">Search</button>
+  </div>
+</body>
+</html>
