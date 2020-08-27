@@ -8,6 +8,16 @@ CREATE TABLE `user` (
  INSERT INTO `user` VALUES ('user02', '0000');
  INSERT INTO `user` VALUES ('admin', 'admin');
  
+
+-- 추가할 내용
+ALTER TABLE user ADD COLUMN birth date NOT NULL;
+ALTER TABLE user ADD COLUMN email varchar(30) NOT NULL;
+
+UPDATE user SET birth = 0000-00-00 , email = 'email@email.com' WHERE id = 'user01';
+UPDATE user SET birth = 0000-00-00 , email = 'email@email.com' WHERE id = 'user02';
+UPDATE user SET birth = 0000-00-00 , email = 'email@email.com' WHERE id = 'admin';
+
+
 --
 -- Table structure for table `topic`
 --
