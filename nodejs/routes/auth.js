@@ -53,7 +53,7 @@ router.get('/logout', (request, response) => {
 router.post('/login_process', (request, response)=>{
     var post = request.body;
     console.log('id: ', post.id);
-    db.query(`SELECT * FROM user WHERE id = '${post.id}'`,(err, res) => {
+    db.query(`SELECT * FROM user WHERE id = ?`,[post.id] ,(err, res) => {
         if(err){
             throw(err);
         }
@@ -170,6 +170,36 @@ router.get('/join', (request, response) => {
     </html>
     `;
     response.send(html);
+});
+
+router.post('/join_process', (request, response)=>{
+    // 수정해야할 부분==================================
+    var post = request.body;
+    db.query(`SELECT * FROM user WHERE id = ?`,[post.id],(err, res) => {
+        if(err){
+            throw(err);
+        }
+        else if(res.length === 0){
+            console.log('id not found');
+            response.send('login failed');
+        }
+        else if(res[0].password !== `${post.password}`){
+            console.log('===password is not correct===');
+            console.log('post.password: ', post.password);
+            console.log('input: ', res[0].password);
+            response.send('login failed');
+        }
+        else{
+            request.session.is_logined = true;
+            request.session.nickname = post.id;
+            // session 객체의 데이터를 session store에 반영.
+            request.session.save(function(){
+                // call back 함수로 메인 페이지로 redirection하게 해서 session 저장 작업이 끝난 후에 수행하게함. 이렇게 안하면 session 저장이 끝나기 전에 redirection이 되서 로그인 안된 채로 메인화면으로 갈 수도 있음
+                response.redirect(302, `/`);
+            });
+        }
+    })
+    //===================================================
 });
 
 module.exports = router;
