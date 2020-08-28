@@ -1,47 +1,127 @@
 html{
-    background-image:url(/images/nyc.jpg);
-    background-repeat:no-repeat;
+    background:url(/images/landscape.jpg) no-repeat center center fixed;
     background-size:cover;
-    }
-    div{
+    height:100%;
+    overflow:auto;
+  }
+  div{
     text-align:center;
     /* border:1px solid gray; */
-    }
-    button{
+  }
+  button{
     float:center;
-    }
-    #idn, #pwd{
+  }
+  #idn, #pwd{
     border:3px solid white;
     border-radius:8px;
     color:black;
     height:40px;
-    width:600px;
+    width:500px;
     font-size:20pt;
     background:white;
     margin:3px;
     opacity:0.7;
-    }
-    button{
+      }
+      #idn {
+          animation: fadein1 2s;
+      }
+      #pwd {
+          animation: fadein2 2s;
+      }
+      #idn:focus {
+          opacity:0.9;
+      }
+      #pwd:focus {
+          opacity:0.9;
+      }
+  button {
     border:1px solid orange;
     border-radius:8px;
     color:white;
     height:40px;
-    width:610px;
+    width:510px;
     font-size:18pt;
     background:orange;
     margin:3px;
-    }
-    #cbw{
+          opacity: 1;
+          animation: fadein3 2s;
+  }
+      button:hover {
+          width:510px;
+          background-color: red;
+          border: red;
+      }
+  /* #cbw{
     color:white;
-    }
-    h1{
-    margin:130px;
-    font-size:50pt;
+  } */
+      /* label {
+          animation: fadein3 2.5s;
+      } */
+  h1{
+    font-size:60pt;
     color:white;
-    }
-    a{
+          margin-top: 200px;
+          margin-bottom: 30px;
+          margin-left: auto;
+          margin-right: auto;
+  }
+  a{
     color:white;
-    }
-    #a{
+  }
+  #a{
     margin:30px;
+          animation: fadein4 2s;
+      }
+      #a1:hover{
+          font-weight: bold;
+      }
+      #a2:hover{
+          font-weight: bold;
+      }
+      #a3:hover{
+          font-weight: bold;
+      }
+      @keyframes fadein1 {
+      0% {
+        opacity:0;
+      }
+          50% {
+              opacity: 0;
+          }
+          100% {
+              opacity: 0.7;
+          }
     }
+      @keyframes fadein2 {
+      0% {
+        opacity:0;
+      }
+      60% {
+        opacity:0;
+      }
+          100% {
+              opacity:0.7;
+          }
+    }
+      @keyframes fadein3 {
+          0% {
+              opacity:0;
+          }
+          70% {
+              opacity:0;
+          }
+          100% {
+              opacity:1;
+          }
+      }
+      @keyframes fadein4 {
+          0% {
+              opacity:0;
+          }
+          80% {
+              opacity:0;
+          }
+          100% {
+              opacity:1;
+          }
+      }

@@ -157,7 +157,7 @@ html,body,.slider{
 
 
  .contents_searching input:-ms-input-placeholder {color:#a8a8a8;}
- /*.contents_searching input:: -webkit-input-placeholder {color:#a8a8a8;}*/
+ .contents_searching input:: -webkit-input-placeholder {color:#a8a8a8;}
  .contents_searching input::-moz-placeholder {color: #a8a8a8;}
 
 .contents_searching{

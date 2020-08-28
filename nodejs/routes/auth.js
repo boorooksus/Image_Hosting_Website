@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var db = require('../lib/db.js');
 
-
 router.get('/login', (request, response) => {
     var html = `        
     <!DOCTYPE html>
@@ -12,7 +11,7 @@ router.get('/login', (request, response) => {
         <link rel="stylesheet" href="/css/style-login.css">
         </head>
         <body>
-        <form action="/auth/login_process" method="post">
+        <form action="/auth/login_proces" method="post">
             <div>
             <h1>
                 Welcome!
@@ -22,20 +21,20 @@ router.get('/login', (request, response) => {
             <input id="idn" type="text" name="id" placeholder="ID">
             </div>
             <div>
-            <input id="pwd" type="password" name="password" placeholder="Password">
+            <input id="pwd" type="password" name="pwd" placeholder="Password">
             </div>
             <div>
             <button type="submit">Login</button>
             </div>
-            <div id="cbw">
+            <!-- <div>
             <label>
-                <input id="cb" type="checkbox" name="size">로그인 상태 유지
+                <input id="cbw" type="checkbox" name="size">로그인 상태 유지
             </label>
-            </div>
+            </div> -->
             <div id="a">
-            <a href="inha2.html" target="_blank">아이디 찾기</a>
-            <a href="inha3.html" target="_blank">비밀번호 찾기</a>
-            <a href="https://haha/joining.php">회원가입</a>
+            <a id="a1" href="#" style="text-decoration:none" target="_blank">아이디 찾기</a>
+            <a id="a2" href="#" style="text-decoration:none" target="_blank">비밀번호 찾기</a>
+            <a id="a3" href="/auth/join" style="text-decoration:none" target="_blank">회원가입</a>
             </div>
         </form>
         </body>
@@ -43,6 +42,7 @@ router.get('/login', (request, response) => {
     `;
     response.send(html);
 });
+
 
 router.get('/logout', (request, response) => {
     request.session.destroy(function(err){
