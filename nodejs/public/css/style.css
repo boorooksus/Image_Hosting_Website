@@ -1,5 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
 
+
+/* 모바일 가로, 테블릿 세로 (해상도 ~ 479px)*/
+@media (max-width:480px) {
+ #membership
+ {
+   left: 39%
+ }
+
+  #slider, #overLay {
+         width: 100%;
+         height: 100%;
+  }
+  #contents_name, #js-clock{
+    font:43px bold;
+    margin-bottom: 15px;
+    color: white;
+  }
+
+  #contents_searching{
+    height: 40px;
+    width: 340px;
+    background-color: #ffffff;
+    margin-bottom: 25px;
+  }
+
+  #contents_searching input{
+    font-size: 16px;
+    width: 245px;
+    padding: 10px;
+    border: 0;
+    outline: none;
+    float: left;
+  }
+
+  #contents_searching button{
+    width: 55px;
+    padding: 11px;
+    border: 0;
+    background-color: #1b5ac2;
+    outline: none;
+    float: right;
+    color: #ffffff;
+    }
+
+}
+@media (min-width: 768px) and (max-width: 1024px)
+{
+#contents
+{
+  top: 24%;
+}
+}
+
+
+
+
+
+
 html,body,.slider{
   font-family: 'Roboto Mono', monospace;
   width: 100%;
@@ -16,7 +74,7 @@ html,body,.slider{
 }
 
 .slider {
-       position:relative;
+       position:absolute;
        width: 100%;
        height: 100%;
        top: 0;
@@ -59,7 +117,7 @@ html,body,.slider{
 .membership{
   position: absolute;
   top: 1%;
-  left: 50%;
+  left: 48%;
   text-align: center;
   margin-left: -40px;
   z-index: 20;
@@ -82,15 +140,15 @@ html,body,.slider{
 
 .contents{
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 36%;
+  left: 48%;
   margin-left: -160px;
   margin-top: -85px;
   text-align: center;
   z-index: 20;
 }
 
-.contents_name{
+.contents_name, .js-clock{
   font:62px bold;
   margin-bottom: 25px;
   color: white;
@@ -99,7 +157,7 @@ html,body,.slider{
 
 
  .contents_searching input:-ms-input-placeholder {color:#a8a8a8;}
- /*.contents_searching input:: -webkit-input-placeholder{color:#a8a8a8;}*/
+ /*.contents_searching input:: -webkit-input-placeholder {color:#a8a8a8;}*/
  .contents_searching input::-moz-placeholder {color: #a8a8a8;}
 
 .contents_searching{
@@ -140,6 +198,7 @@ html,body,.slider{
   border-radius: 50%;
   font-size: 20px;
   margin-right: 25px;
+  margin-bottom: 20px;
    overflow: hidden;
 }
 
