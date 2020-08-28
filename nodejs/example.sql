@@ -10,12 +10,16 @@ CREATE TABLE `user` (
  
 
 -- 추가할 내용
-ALTER TABLE user ADD COLUMN birth date NOT NULL;
-ALTER TABLE user ADD COLUMN email varchar(30) NOT NULL;
+ALTER TABLE user ADD COLUMN birth dateL;
+ALTER TABLE user ADD COLUMN email varchar(30);
 
-UPDATE user SET birth = 0000-00-00 , email = 'email@email.com' WHERE id = 'user01';
-UPDATE user SET birth = 0000-00-00 , email = 'email@email.com' WHERE id = 'user02';
-UPDATE user SET birth = 0000-00-00 , email = 'email@email.com' WHERE id = 'admin';
+UPDATE user SET birth = "0000-00-00" , email = 'email@email.com' WHERE id = 'user01';
+UPDATE user SET birth = "0000-00-00" , email = 'email@email.com' WHERE id = 'user02';
+UPDATE user SET birth = "0000-00-00" , email = 'email@email.com' WHERE id = 'admin';
+
+
+ALTER TABLE user MODIFY COLUMN birth date NOT NULL;
+ALTER TABLE user MODIFY COLUMN email varchar(30) NOT NULL;
 
 
 --
@@ -34,14 +38,3 @@ CREATE TABLE `upload` (
 
 ALTER TABLE upload MODIFY title text NOT NULL;
 
-
-출처: https://extbrain.tistory.com/39 [확장형 뇌 저장소] 
---
--- Dumping data for table `topic`
---
- 
-INSERT INTO `topic` VALUES (1,'MySQL','MySQL is...','2018-01-01 12:10:11',1);
-INSERT INTO `topic` VALUES (2,'Oracle','Oracle is ...','2018-01-03 13:01:10',1);
-INSERT INTO `topic` VALUES (3,'SQL Server','SQL Server is ...','2018-01-20 11:01:10',2);
-INSERT INTO `topic` VALUES (4,'PostgreSQL','PostgreSQL is ...','2018-01-23 01:03:03',3);
-INSERT INTO `topic` VALUES (5,'MongoDB','MongoDB is ...','2018-01-30 12:31:03',1);
