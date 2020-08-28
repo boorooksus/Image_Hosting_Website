@@ -92,6 +92,7 @@ Judge.same = function (self) {
 }
 
 Judge.blank = function () {
+    var form = document.joinForm;
     let infoList = document.getElementsByClassName('text');
     for (let i = 0; i < infoList.length; i++) {
         if (infoList[i].value == "") {
@@ -100,6 +101,9 @@ Judge.blank = function () {
             return;
         }
     }
+    
+
+    form.submit();
 }
 
 function removeBlur(self) {

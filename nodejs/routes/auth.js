@@ -106,7 +106,7 @@ router.get('/join', (request, response) => {
                 <li>게시판4</li>
             </ul>
             <div id="inputInfo">
-                <form action="/auth/join_process" method="post">
+                <form name="joinForm" action="/auth/join_process" method="post">
                     <table>
                         <tr>
                             <td>아이디</td>
@@ -160,7 +160,7 @@ router.get('/join', (request, response) => {
                     <br>
                     <br>
                     <br>
-                    <input class="btn_submit" name="submit" type="submit" value="회원가입" onclick="Judge.blank()">
+                    <input class="btn_submit" type="button" value="회원가입" onclick="Judge.blank()">
                 </form>
             </div>
         </div>
@@ -173,32 +173,44 @@ router.get('/join', (request, response) => {
 });
 
 router.post('/join_process', (request, response)=>{
+    console.log('hi');
     // 수정해야할 부분==================================
     var post = request.body;
-    db.query(`SELECT * FROM user WHERE id = ?`,[post.id],(err, res) => {
-        if(err){
-            throw(err);
+
+    db.query(`
+        INSERT INTO user (id, password, birth, email) VALUE(?, ?, ?, ?)`, [post.id, post.password, post.birth, post.email], (err, res) => {
+            if(err){
+                throw err;
+            }
+            response.redirect(302, `/auth/login`);
+            
         }
-        else if(res.length === 0){
-            console.log('id not found');
-            response.send('login failed');
-        }
-        else if(res[0].password !== `${post.password}`){
-            console.log('===password is not correct===');
-            console.log('post.password: ', post.password);
-            console.log('input: ', res[0].password);
-            response.send('login failed');
-        }
-        else{
-            request.session.is_logined = true;
-            request.session.nickname = post.id;
-            // session 객체의 데이터를 session store에 반영.
-            request.session.save(function(){
-                // call back 함수로 메인 페이지로 redirection하게 해서 session 저장 작업이 끝난 후에 수행하게함. 이렇게 안하면 session 저장이 끝나기 전에 redirection이 되서 로그인 안된 채로 메인화면으로 갈 수도 있음
-                response.redirect(302, `/`);
-            });
-        }
-    })
+    )
+
+    // db.query(`SELECT * FROM user WHERE id = ?`,[post.id],(err, res) => {
+    //     if(err){
+    //         throw(err);
+    //     }
+    //     else if(res.length === 0){
+    //         console.log('id not found');
+    //         response.send('login failed');
+    //     }
+    //     else if(res[0].password !== `${post.password}`){
+    //         console.log('===password is not correct===');
+    //         console.log('post.password: ', post.password);
+    //         console.log('input: ', res[0].password);
+    //         response.send('login failed');
+    //     }
+    //     else{
+    //         request.session.is_logined = true;
+    //         request.session.nickname = post.id;
+    //         // session 객체의 데이터를 session store에 반영.
+    //         request.session.save(function(){
+    //             // call back 함수로 메인 페이지로 redirection하게 해서 session 저장 작업이 끝난 후에 수행하게함. 이렇게 안하면 session 저장이 끝나기 전에 redirection이 되서 로그인 안된 채로 메인화면으로 갈 수도 있음
+    //             response.redirect(302, `/`);
+    //         });
+    //     }
+    // })
     //===================================================
 });
 
