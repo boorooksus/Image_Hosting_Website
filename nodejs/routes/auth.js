@@ -11,7 +11,7 @@ router.get('/login', (request, response) => {
         <link rel="stylesheet" href="/css/style-login.css">
         </head>
         <body>
-        <form action="/auth/login_proces" method="post">
+        <form action="/auth/login_process" method="post">
             <div>
             <h1>
                 Welcome!
@@ -21,7 +21,7 @@ router.get('/login', (request, response) => {
             <input id="idn" type="text" name="id" placeholder="ID">
             </div>
             <div>
-            <input id="pwd" type="password" name="pwd" placeholder="Password">
+            <input id="pwd" type="password" name="password" placeholder="Password">
             </div>
             <div>
             <button type="submit">Login</button>
@@ -59,13 +59,21 @@ router.post('/login_process', (request, response)=>{
         }
         else if(res.length === 0){
             console.log('id not found');
-            response.send('login failed');
+            response.send(`
+            <script>alert('id not found')
+            window.history.back();
+            </script> 
+            `);
         }
         else if(res[0].password !== `${post.password}`){
             console.log('===password is not correct===');
             console.log('post.password: ', post.password);
             console.log('input: ', res[0].password);
-            response.send('login failed');
+            response.send(`
+            <script>alert('password is not correct')
+            window.history.back();
+            </script> 
+            `);
         }
         else{
             request.session.is_logined = true;
@@ -173,8 +181,6 @@ router.get('/join', (request, response) => {
 });
 
 router.post('/join_process', (request, response)=>{
-    console.log('hi');
-    // 수정해야할 부분==================================
     var post = request.body;
 
     db.query(`
@@ -186,32 +192,6 @@ router.post('/join_process', (request, response)=>{
             
         }
     )
-
-    // db.query(`SELECT * FROM user WHERE id = ?`,[post.id],(err, res) => {
-    //     if(err){
-    //         throw(err);
-    //     }
-    //     else if(res.length === 0){
-    //         console.log('id not found');
-    //         response.send('login failed');
-    //     }
-    //     else if(res[0].password !== `${post.password}`){
-    //         console.log('===password is not correct===');
-    //         console.log('post.password: ', post.password);
-    //         console.log('input: ', res[0].password);
-    //         response.send('login failed');
-    //     }
-    //     else{
-    //         request.session.is_logined = true;
-    //         request.session.nickname = post.id;
-    //         // session 객체의 데이터를 session store에 반영.
-    //         request.session.save(function(){
-    //             // call back 함수로 메인 페이지로 redirection하게 해서 session 저장 작업이 끝난 후에 수행하게함. 이렇게 안하면 session 저장이 끝나기 전에 redirection이 되서 로그인 안된 채로 메인화면으로 갈 수도 있음
-    //             response.redirect(302, `/`);
-    //         });
-    //     }
-    // })
-    //===================================================
 });
 
 module.exports = router;

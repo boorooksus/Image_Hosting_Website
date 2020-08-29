@@ -61,11 +61,19 @@ router.get('/create', (request, response) => {
 router.post('/create_process',upload.single('img'), (request, response, next)=>{
     var post = request.body;
     if(request.file === undefined){
-        response.send('이미지를 첨부해주세요.');
+        response.send(`
+            <script>alert('이미지를 첨부해주세요')
+            window.history.back();
+            </script> 
+            `);
         return false;
     }
     else if(post.title === ''){
-        response.send('제목을 적어주세요');
+        response.send(`
+            <script>alert('제목을 적어주세요')
+            window.history.back();
+            </script> 
+            `);
         return false;
     }
     db.query(`
@@ -181,7 +189,11 @@ router.post('/delete_process', (request, response) => {
             }); 
         }
         else{
-            response.send('작성자가 아닙니다');
+            response.send(`
+            <script>alert('작성자가 아닙니다')
+            window.history.back();
+            </script> 
+            `);
         }
     }); 
 });
@@ -270,7 +282,11 @@ router.get('/update/:pageId', (request, response) => {
         response.send(html); 
         }
         else{
-            response.send('작성자가 아닙니다');
+            response.send(`
+            <script>alert('작성자가 아닙니다')
+            window.history.back();
+            </script> 
+            `);
         }
     }); 
 });
@@ -280,7 +296,11 @@ router.post('/update_process',upload.single('img'), (request, response) => {
     console.log("Arrive");
     console.log(request.file);
     if(request.file === undefined){
-        response.send('이미지를 첨부해주세요.');
+        response.send(`
+            <script>alert('이미지를 첨부해주세요')
+            window.history.back();
+            </script> 
+            `);
         return false;
     }
     db.query(`
