@@ -65,7 +65,7 @@ router.get('/join', (request, response) => {
     </head>
 
     <body>
-        <h6 id="signUp"><a href="/auth/join">회원 가입</a></h6>
+        <h3 id="signUp"><a href="/">WEB_14</a></h6>
 
         <h4 class="title">회원 가입</h4>
         <div id="grid">

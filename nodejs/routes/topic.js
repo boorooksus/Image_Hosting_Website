@@ -20,7 +20,7 @@ var _storage = multer.diskStorage({
 var upload = multer({storage: _storage}) //dest : 저장 위치
 //var upload = multer({dest: 'uploads/'})
 
-
+// 글 생성 페이지
 router.get('/create', (request, response) => {
     if(!auth.isLogined(request, response)){
         response.redirect('/auth/login');
@@ -58,6 +58,7 @@ router.get('/create', (request, response) => {
     response.send(html);
 });
 
+// 글 생성 처리
 router.post('/create_process',upload.single('img'), (request, response, next)=>{
     var post = request.body;
     if(request.file === undefined){
@@ -87,6 +88,7 @@ router.post('/create_process',upload.single('img'), (request, response, next)=>{
     )
 });
 
+// 글 상세보기 페이지
 router.get('/:pageId', function(request, response, next){
     var title = request.params.pageId;
     var sanitizedTitle = sanitizeHtml(title);
@@ -140,6 +142,7 @@ router.get('/:pageId', function(request, response, next){
 
 });
 
+// 사진 목록 페이지
 router.get('/browsing/:pageNum', (request, response) => {
     var pageNum = request.params.pageNum;
     db.query(`SELECT * FROM upload WHERE title IS NOT NULL ORDER BY id DESC`, (error, result) => {
