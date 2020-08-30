@@ -66,16 +66,11 @@ router.get('/join', (request, response) => {
 
     <body>
         <h6 id="signUp"><a href="/auth/join">회원 가입</a></h6>
-        <img src="smile.jpg" alt="Add Image" width="1000px" height="350px">
+
         <h4 class="title">회원 가입</h4>
         <div id="grid">
             <ul>
-                <li>전체 글 보기</li>
-                <br>
-                <li>게시판1</li>
-                <li>게시판2</li>
-                <li>게시판3</li>
-                <li>게시판4</li>
+
             </ul>
             <div id="inputInfo">
                 <form name="joinForm" action="/auth/join_process" method="post">
