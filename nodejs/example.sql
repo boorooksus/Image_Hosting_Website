@@ -21,6 +21,8 @@ UPDATE user SET birth = "0000-00-00" , email = 'email@email.com' WHERE id = 'adm
 ALTER TABLE user MODIFY COLUMN birth date NOT NULL;
 ALTER TABLE user MODIFY COLUMN email varchar(30) NOT NULL;
 
+ALTER TABLE user MODIFY COLUMN password text NOT NULL;
+
 
 --
 -- Table structure for table `topic`

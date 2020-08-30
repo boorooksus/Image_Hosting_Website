@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../lib/db.js');
+var bcrypt = require('bcrypt');
 
 router.get('/login', (request, response) => {
     var html = `        
@@ -48,43 +49,6 @@ router.get('/logout', (request, response) => {
     request.session.destroy(function(err){
         response.redirect('/');
     });
-})
-
-router.post('/login_process', (request, response)=>{
-    var post = request.body;
-    console.log('id: ', post.id);
-    db.query(`SELECT * FROM user WHERE id = ?`,[post.id] ,(err, res) => {
-        if(err){
-            throw(err);
-        }
-        else if(res.length === 0){
-            console.log('id not found');
-            response.send(`
-            <script>alert('id not found')
-            window.history.back();
-            </script> 
-            `);
-        }
-        else if(res[0].password !== `${post.password}`){
-            console.log('===password is not correct===');
-            console.log('post.password: ', post.password);
-            console.log('input: ', res[0].password);
-            response.send(`
-            <script>alert('password is not correct')
-            window.history.back();
-            </script> 
-            `);
-        }
-        else{
-            request.session.is_logined = true;
-            request.session.nickname = post.id;
-            // session 객체의 데이터를 session store에 반영.
-            request.session.save(function(){
-                // call back 함수로 메인 페이지로 redirection하게 해서 session 저장 작업이 끝난 후에 수행하게함. 이렇게 안하면 session 저장이 끝나기 전에 redirection이 되서 로그인 안된 채로 메인화면으로 갈 수도 있음
-                response.redirect(302, `/`);
-            });
-        }
-    })
 })
 
 router.get('/join', (request, response) => {
@@ -180,18 +144,57 @@ router.get('/join', (request, response) => {
     response.send(html);
 });
 
+router.post('/login_process', (request, response)=>{
+    var post = request.body;
+    console.log('id: ', post.id);
+    db.query(`SELECT * FROM user WHERE id = ?`,[post.id] ,(err, res) => {
+        if(err){
+            throw(err);
+        }
+        else if(res.length === 0){
+            console.log('id not found');
+            response.send(`
+            <script>alert('id not found')
+            window.history.back();
+            </script> 
+            `);
+        }
+        bcrypt.compare(post.password, res[0].password).then(compare_result => {
+            console.log('input: ' + post.password);
+            console.log('db: ' + res[0].password);
+            if(compare_result === true){
+                request.session.is_logined = true;
+                request.session.nickname = post.id;
+                request.session.save(function(){
+                    response.redirect(302, `/`);
+                });
+            } else{
+                console.log('===password is not correct===');
+                console.log('post.password: ', post.password);
+                console.log('input: ', res[0].password);
+                response.send(`
+                <script>alert('password is not correct')
+                window.history.back();
+                </script> 
+                `);
+            }
+        });
+    })
+})
+
 router.post('/join_process', (request, response)=>{
     var post = request.body;
-
-    db.query(`
-        INSERT INTO user (id, password, birth, email) VALUE(?, ?, ?, ?)`, [post.id, post.password, post.birth, post.email], (err, res) => {
+    bcrypt.hash(post.password, 12, function(err1, hash){
+        db.query(`
+        INSERT INTO user (id, password, birth, email) VALUE(?, ?, ?, ?)`, [post.id, hash, post.birth, post.email], (err, res) => {
             if(err){
                 throw err;
             }
             response.redirect(302, `/auth/login`);
             
         }
-    )
+        )
+    });
 });
 
 module.exports = router;
