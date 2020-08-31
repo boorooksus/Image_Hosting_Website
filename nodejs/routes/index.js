@@ -35,7 +35,7 @@ router.get('/', function(request, response){
           <div class='js-clock' id ='js-clock'><h1>00:00</h1></div>
             <div class="contents_searching" id='contents_searching'>
             <form action="/topic/search/1" method="post">
-            <input type="text" placeholder="검색어 입력">
+            <input type="text" placeholder="검색어 입력" name="term">
             <button>검색</button>
             </form>
             </div>

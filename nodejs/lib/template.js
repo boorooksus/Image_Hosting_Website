@@ -1,5 +1,5 @@
 module.exports = {
-    html:function(list, authStatusUi, pageList){
+    html:function(list, authStatusUi, pageList, term){
         return `
         <!doctype html>
         <html>
@@ -21,7 +21,7 @@ module.exports = {
                 <div class="contents">
                 <div class="contents_searching">
                 <form action="/topic/search/1" method="post">
-                  <input type="text" name="term" placeholder="검색어 입력">
+                  <input type="text" name="term" placeholder="${term}">
                   <button>검색</button>
                 </form>
                 </div>

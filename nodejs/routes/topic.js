@@ -182,7 +182,7 @@ router.get('/browsing/:pageNum', (request, response) => {
         pageList += `</ol></div>`
         var authStatusUi = auth.statusUi(request, response);
 
-        var html = template.html(list, authStatusUi, pageList);
+        var html = template.html(list, authStatusUi, pageList, '검색어 입력');
         response.send(html)
     });
 });
@@ -261,6 +261,8 @@ router.post('/delete_process', (request, response) => {
 router.post('/search/:pageNum', (request, response)=>{
     var pageNum = request.params.pageNum;
     var post = request.body;
+    var term = post.term;
+    console.log(post);
     db.query(`
         SELECT * FROM upload WHERE title LIKE '%${post.term}%' or description LIKE '%${post.term}%';
         `, (err, result) => {
@@ -296,7 +298,7 @@ router.post('/search/:pageNum', (request, response)=>{
             i += `</ol></div>`
 
             var authStatusUi = auth.statusUi(request, response);
-            var html = template.html(list, authStatusUi, pageList);
+            var html = template.html(list, authStatusUi, pageList, term);
             response.send(html)
         }
     )
