@@ -46,7 +46,7 @@ HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 
 -  글 상세 보기
 ![localhost_3000_topic_Lorem%20ipsum%20dolor%20sit%20amet,%20consectetur%20adipiscing%20elit %20Phasellus%20ac%20rhoncus%20diam %20Aenean%20ut%20consectetur%20quam %20Morbi%20quis%20convallis%20ligula %20Etiam%20matt](https://user-images.githubusercontent.com/55964775/91716666-1156a180-ebcb-11ea-92d8-ef90ee24eaad.png)
 
--  이미지 둘러보기(와면에 사진이 최대 20개까지만 나오도록 페이징)
+-  이미지 둘러보기(면에 사진이 최대 20개까지만 나오도록 페이징)
 ![localhost_3000_topic_browsing_1](https://user-images.githubusercontent.com/55964775/91716395-87a6d400-ebca-11ea-9be7-5a5e8ca689ab.png)
 
 -  검색 기능
