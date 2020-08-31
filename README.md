@@ -10,9 +10,11 @@
 - 오영민
 - 최영광
 <br>
+
 ### 프로젝트 동기 및 목적
 HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 Node.js 서버 인터넷 프로그래밍 언어를 활용하여 이미지 공유 웹사이트를 설계하고 구현한다.
 <br>
+
 ### 활용 기술
 - HTML
 - CSS
@@ -22,6 +24,7 @@ HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 
 - Express.js
 - MySQL
 <br>
+
 ### 프로젝트 실행 방법
 1. MySQL 설치 후 'example.sql' 데이터베이스 복원
 2. Node.js 설치
@@ -30,6 +33,7 @@ HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 
 5. bin/lib 위치에 있는 'db.template.js'파일에서 mysql의 user, password, database 정보 입력 후 파일 제목을 'db.js'로 변경
 6. bin 폴더 내의 'main.js' 프로그램 실행
 <br>
+
 ### 프로그램 설명
 - 메인화면(로그인 전)
 ![메인화면](https://user-images.githubusercontent.com/55964775/91716360-7958b800-ebca-11ea-9787-9cffed36c21e.JPG)
