@@ -27,7 +27,7 @@ HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 
 2. Node.js 설치
 3. cmd에서 bin폴더 디렉토리로 이동
 4. 프로그램에 필요한 NPM 모듈 설치
-5. 프로그램 실행
+5. bin 폴더 내의 'main.js' 프로그램 실행
 
 #### 프로그램 설명
 ![메인화면](https://user-images.githubusercontent.com/55964775/91716360-7958b800-ebca-11ea-9787-9cffed36c21e.JPG)
