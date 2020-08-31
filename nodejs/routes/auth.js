@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var db = require('../lib/db.js');
 var bcrypt = require('bcrypt');
+var auth = require('../lib/auth.js');
 
+// 로그인 페이지
 router.get('/login', (request, response) => {
     var html = `        
     <!DOCTYPE html>
@@ -44,13 +46,14 @@ router.get('/login', (request, response) => {
     response.send(html);
 });
 
-
+// 로그아웃 처리
 router.get('/logout', (request, response) => {
     request.session.destroy(function(err){
         response.redirect('/');
     });
 })
 
+// 회원가입 페이지
 router.get('/join', (request, response) => {
     var html = `     
     <!DOCTYPE html>
@@ -139,6 +142,7 @@ router.get('/join', (request, response) => {
     response.send(html);
 });
 
+// 로그인 처리
 router.post('/login_process', (request, response)=>{
     var post = request.body;
     console.log('id: ', post.id);
@@ -177,6 +181,7 @@ router.post('/login_process', (request, response)=>{
     })
 })
 
+// 회원가입 처리
 router.post('/join_process', (request, response)=>{
     var post = request.body;
     bcrypt.hash(post.password, 12, function(err1, hash){
@@ -190,6 +195,112 @@ router.post('/join_process', (request, response)=>{
         }
         )
     });
+});
+
+// 회원 정보 수정 페이지
+router.get('/modifyingMyInfo', (request, response) =>{
+    if(!auth.isLogined(request, response)){
+        response.send(`
+            <script>alert("회원 정보 수정::로그인 후 이용 가능합니다")
+            window.history.back();
+            </script> 
+        `);
+        return;
+    }
+    var html = `     
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style-signup.css">
+        <script defer src="/js/script-signup.js"></script>
+        <title>회원 정보 수정</title>
+    </head>
+
+    <body>
+        <h3 id="signUp"><a href="/">WEB_14</a></h6>
+
+        <h4 class="title">회원 정보 수정</h4>
+        <div id="grid">
+            <ul>
+
+            </ul>
+            <div id="inputInfo">
+                <form name="joinForm" action="/auth/modifyingMyInfo_process" method="post">
+                    <table>
+                        <tr>
+                            <td>비밀번호</td>
+                            <td><input type="password" id="password" class="text" name="password"
+                                    placeholder="비밀번호(숫자, 영어조합 10자 이상)" onfocus="removeBlur(this)" onblur="blur(this)"
+                                    onkeyup="Judge.correct(this)"></td>
+                        </tr>
+                    </table>
+                    <p id="judgement_1"></p>
+                    <table>
+                        <tr>
+                            <td>비밀번호 확인</td>
+                            <td><input type="password" id="pass_check" class="text" name="passwordCheck"
+                                    placeholder="비밀번호 확인" onfocus="removeBlur(this)" onblur="blur(this)"
+                                    onkeyup="Judge.same(this)"></td>
+                        </tr>
+                    </table>
+                    <p id="judgement_2"></p>
+                    <table>
+                        <tr>
+                            <td>이름</td>
+                            <td><input type="text" id="name" name="name" class="text" onfocus="removeBlur(this)"
+                                    placeholder="이름" onblur="blur(this)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>생년월일</td>
+                            <td><input type="date" id="birth" name="birth" class="text" onfocus="removeBlur(this)"
+                                    onblur="blur(this)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>이메일</td>
+                            <td><input type="email" id="email" class="text" name="email" onfocus="removeBlur(this)"
+                                    placeholder="이메일" onblur="blur(this)"></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>성별</td>
+                            <td><input type="button" id="male" name="male" value="남" onclick="gender(this, '#female')"></td>
+                            <td><input type="button" id="female" name="female" value="여" onclick="gender(this, '#male')">
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <br>
+                    <br>
+                    <input class="btn_submit" type="button" value="회원 정보 수정" onclick="Judge.blank()">
+                </form>
+            </div>
+        </div>
+
+    </body>
+
+    </html>
+    `;
+    response.send(html);
+})
+
+// 회원 정보 수정 처리
+router.post('/modifyingMyInfo_process', (request, response) => {
+    var post = request.body;
+    bcrypt.hash(post.password, 12, function(err1, hash){
+        db.query(`
+        UPDATE user SET password=? , email=? WHERE id = '${request.session.nickname}'`, [hash, post.email], (err, res) => {
+            if(err){
+                throw err;
+            }
+            response.redirect(302, `/`);
+        })
+});
 });
 
 module.exports = router;

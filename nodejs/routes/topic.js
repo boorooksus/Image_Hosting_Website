@@ -23,10 +23,15 @@ var upload = multer({storage: _storage}) //dest : 저장 위치
 // 글 생성 페이지
 router.get('/create', (request, response) => {
     if(!auth.isLogined(request, response)){
-        response.redirect('/auth/login');
-        return false;
+        response.send(`
+            <script>alert('글 생성::로그인 후 이용 가능합니다.')
+            window.history.back();
+            </script> 
+        `);
+        return;
     }
-    var authStatusUi = auth.statusUi(request, response);
+    else{
+        var authStatusUi = auth.statusUi(request, response);
     var html = `     
         <!DOCTYPE html>
         <html>
@@ -56,6 +61,7 @@ router.get('/create', (request, response) => {
         </html>
     `;
     response.send(html);
+    }
 });
 
 // 글 생성 처리
@@ -173,7 +179,7 @@ router.get('/browsing/:pageNum', (request, response) => {
             }
             i += 1;
         }
-        i += `</ol></div>`
+        pageList += `</ol></div>`
         var authStatusUi = auth.statusUi(request, response);
 
         var html = template.html(list, authStatusUi, pageList);
@@ -181,6 +187,56 @@ router.get('/browsing/:pageNum', (request, response) => {
     });
 });
 
+// 내가 쓴 글 보기 페이지
+router.get('/myPage/:pageNum', (request, response) =>{
+    if(!auth.isLogined(request, response)){
+        response.send(`
+            <script>alert("내가 쓴 글::로그인 후 이용 가능합니다")
+            window.history.back();
+            </script> 
+        `);
+        return;
+    }
+    var pageNum = request.params.pageNum;
+    db.query(`SELECT * FROM upload WHERE title IS NOT NULL AND author_id = '${request.session.nickname}' ORDER BY id DESC`, (error, result) => {
+        var list = '<div id="columns">';
+        var cur = (pageNum - 1) * postNum;
+        var end = cur + postNum;
+        while(cur < end && cur < result.length){
+            list = list + `
+            <figure>
+                <a href="/topic/${result[cur].title}">
+                <img src="/uploads/${result[cur].img_name}"></a>
+                <figcaption>${result[cur].description}</figcaption>
+            </figure>
+            `;
+            cur += 1;
+        }
+        list += `</div>`
+
+        var pageList = `<div id=page_list><ol>`;
+        var i = 1;
+        while(i < (result.length / postNum + 1)){
+            if(i === Number(pageNum)){
+                pageList += `<strong><li><a href="/topic/browsing/${i}">[${i}]</a></li></strong>`;
+            }
+            else{
+                pageList += `<li><a href="/topic/browsing/${i}">[${i}]</a></li>`;
+            }
+            i += 1;
+        }
+        pageList += `</ol></div>`
+        if(result.length == 0){
+            list += '내가 쓴 글이 아직 없습니다!'
+        }
+        var authStatusUi = auth.statusUi(request, response);
+
+        var html = template.html(list, authStatusUi, pageList);
+        response.send(html)
+    });
+});
+
+// 글 삭제
 router.post('/delete_process', (request, response) => {
     var post = request.body
     var id = post.id;
@@ -201,7 +257,7 @@ router.post('/delete_process', (request, response) => {
     }); 
 });
 
-
+// 글 검색 결과
 router.post('/search/:pageNum', (request, response)=>{
     var pageNum = request.params.pageNum;
     var post = request.body;
@@ -246,6 +302,7 @@ router.post('/search/:pageNum', (request, response)=>{
     )
 });
 
+// 글 수정 페이지
 router.get('/update/:pageId', (request, response) => {
     var filteredId = path.parse(request.params.pageId).base;
     var authStatusUi = auth.statusUi(request, response);
@@ -294,6 +351,7 @@ router.get('/update/:pageId', (request, response) => {
     }); 
 });
 
+// 글 수정 처리
 router.post('/update_process',upload.single('img'), (request, response) => {
     var post = request.body;
     console.log("Arrive");

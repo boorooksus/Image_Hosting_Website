@@ -43,8 +43,8 @@ router.get('/', function(request, response){
               <ul class="contents_list">
                 <li><a href="/topic/create"><i class="far fa-plus-square"></i></a><div style="color:#fbbc05">add</div></li>
                 <li><a href="/topic/browsing/1"><i class="fas fa-list"></i></a><div style="color:#fbbc05">list</div></li>
-                <li><a href="#"><i class="fas fa-hashtag"></i></a><div style="color:#fbbc05">tag</div></li>
-                <li><a href="#"><i class="fas fa-ellipsis-h"></i></a><div style="color:#fbbc05">more</div></li>
+                <li><a href="/topic/myPage/1"><i class="fas fa-hashtag"></i></a><div style="color:#fbbc05">tag</div></li>
+                <li><a href="/auth/modifyingMyInfo"><i class="fas fa-ellipsis-h"></i></a><div style="color:#fbbc05">more</div></li>
               </ul>
             </div>
         </div>
