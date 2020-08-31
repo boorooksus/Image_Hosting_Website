@@ -76,12 +76,13 @@ router.get('/join', (request, response) => {
 
             </ul>
             <div id="inputInfo">
-                <form name="joinForm" action="/auth/join_process" method="post">
+                <form name="joinForm"  method="post">
                     <table>
                         <tr>
                             <td>아이디</td>
                             <td><input type="text" id="id" class="text" name="id" placeholder="아이디"
                                     onfocus="removeBlur(this)" onblur="blur(this)"></td>
+                            <td><input type="button" value="아이디 체크" onclick="idCheck()"></td>
                         </tr>
                         <tr>
                             <td>비밀번호</td>
@@ -141,6 +142,31 @@ router.get('/join', (request, response) => {
     `;
     response.send(html);
 });
+
+// 아이디 중복 체크
+router.post('/idCheck', (request, response) => {
+    var post = request.body;
+    db.query(`SELECT * FROM user WHERE id=?`,[post.id],(err, res) => {
+        if(err){
+            throw err;
+        }
+        if(res.length !== 0){
+            response.send(`
+            <script>alert("이미 존재하는 아이디입니다")
+            window.history.back();
+            </script> 
+            `);
+            return;
+        } else{
+            response.send(`
+            <script>alert("사용 가능한 아이디입니다")
+            window.history.back();
+            </script> 
+            `);
+            return;
+        }
+    });
+})
 
 // 로그인 처리
 router.post('/login_process', (request, response)=>{

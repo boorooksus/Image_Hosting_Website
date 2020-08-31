@@ -101,8 +101,18 @@ Judge.blank = function () {
             return;
         }
     }
-    
+    joinForm.action = 'join_process';
+    form.submit();
+}
 
+idCheck = function(){
+    var form = document.joinForm;
+    console.log(joinForm.id.value);
+    if(joinForm.id.value === ""){
+        alert("사용할 아이디를 입력해주세요");
+        return;
+    }
+    joinForm.action = 'idCheck';
     form.submit();
 }
 
