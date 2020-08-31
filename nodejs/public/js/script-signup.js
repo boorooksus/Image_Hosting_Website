@@ -113,6 +113,7 @@ idCheck = function(){
         return;
     }
     joinForm.action = 'idCheck';
+    form.target="winName";
     form.submit();
 }
 
