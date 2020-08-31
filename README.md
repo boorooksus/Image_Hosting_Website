@@ -14,13 +14,13 @@
 HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 Node.js 서버 인터넷 프로그래밍 언어를 활용하여 이미지 공유 웹사이트를 설계하고 구현한다.
 
 #### 활용 기술
--HTML
--CSS
--JavaScript
--JQuery
--Node.js
--Express.js
--MySQL
+- HTML
+- CSS
+- JavaScript
+- JQuery
+- Node.js
+- Express.js
+- MySQL
 
 #### 프로젝트 실행 방법
 1. MySQL 설치 후 'example.sql' 데이터베이스 복원
