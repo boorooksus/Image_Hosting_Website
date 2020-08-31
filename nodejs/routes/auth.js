@@ -184,6 +184,19 @@ router.post('/login_process', (request, response)=>{
 // 회원가입 처리
 router.post('/join_process', (request, response)=>{
     var post = request.body;
+    db.query(`SELECT * FROM user WHERE id=?`,[post.id],(err, res) => {
+        if(err){
+            throw err;
+        }
+        if(res.length !== 0){
+            response.send(`
+            <script>alert("이미 존재하는 아이디입니다")
+            window.history.back();
+            </script> 
+        `);
+        return;
+        }
+    });
     bcrypt.hash(post.password, 12, function(err1, hash){
         db.query(`
         INSERT INTO user (id, password, birth, email) VALUE(?, ?, ?, ?)`, [post.id, hash, post.birth, post.email], (err, res) => {
