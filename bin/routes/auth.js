@@ -183,6 +183,7 @@ router.post('/login_process', (request, response)=>{
             window.history.back();
             </script> 
             `);
+            return
         }
         bcrypt.compare(post.password, res[0].password).then(compare_result => {
             console.log('input: ' + post.password);
