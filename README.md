@@ -39,10 +39,10 @@ HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 
 
 ### 프로그램 설명
 - 메인화면(로그인 전)
-![메인화면](https://user-images.githubusercontent.com/55964775/91716360-7958b800-ebca-11ea-9787-9cffed36c21e.JPG)
+![메인](https://user-images.githubusercontent.com/55964775/92203085-4dd01900-eebb-11ea-9e50-0650fe25a0d3.gif)
 
 -  로그인 페이지
-![로그인페이지](https://user-images.githubusercontent.com/55964775/91716387-82e22000-ebca-11ea-8ee7-6a2728297356.JPG)
+![로그인](https://user-images.githubusercontent.com/55964775/92203065-4741a180-eebb-11ea-9144-a6610e7244c6.gif)
 
 -  메인화면(로그인 후 - 페이지 상단의 버튼 상태 변경됨)
 ![메인 로그인 후](https://user-images.githubusercontent.com/55964775/91716381-81185c80-ebca-11ea-951d-f665e9c8dcad.JPG)
