@@ -63,7 +63,8 @@ HTML, CSS, JavaScript 등의 클라이언트 인터넷프로그래밍 언어와 
 ![image](https://user-images.githubusercontent.com/55964775/91716881-67c3e000-ebcb-11ea-9735-d8fa49c81638.png)<br>
 
 - 회원가입 - 아이디 중복 체크
-![아이디 중복 체크](https://user-images.githubusercontent.com/55964775/91716429-9b523a80-ebca-11ea-99d5-3957bbe98a06.JPG)<br>
+![아이디 체크](https://user-images.githubusercontent.com/55964775/92203282-bcad7200-eebb-11ea-91bc-1704fcad5501.gif)
+<br>
 
 - 회원 비밀번호 정보는 데이터베이스에 암호화 한 후 저장
 ![암호화 결과](https://user-images.githubusercontent.com/55964775/91716423-97beb380-ebca-11ea-9f16-21b7925bfca5.JPG)<br>
