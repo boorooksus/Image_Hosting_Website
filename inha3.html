@@ -59,6 +59,25 @@
       opacity: 0;
     }
   </style>
+	<script>
+	function id_search()
+	{
+	  var f = document.id_f;
+	  if(f.user_id.value=="")
+	  {
+	    alert("ID를 입력해주세요.");
+	    f.user_id.focus();
+	    return;
+	  }
+	  if(f.user_email.value=="")
+	  {
+	    alert("Email을 입력해주세요.");
+	    f.user_email.focus();
+	    return;
+	  }
+	  f.submit();
+	}
+	</script>
 </head>
 <body>
   <div>
@@ -67,13 +86,13 @@
     </h1>
   </div>
   <div>
-    <input id="idn" type="text" name="id" placeholder="ID">
+    <input id="idn" type="text" name="user_id" placeholder="ID">
   </div>
   <div>
-    <input id="em" type="email" name="email" placeholder="Email">
+    <input id="em" type="email" name="user_email" placeholder="Email">
   </div>
   <div>
-    <button type="submit">Search</button>
+    <button type="submit" onclick="search_click();">Search</button>
   </div>
 </body>
 </html>
